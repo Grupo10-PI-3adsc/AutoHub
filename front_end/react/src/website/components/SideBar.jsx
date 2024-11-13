@@ -18,33 +18,33 @@ const SideBar = () => {
                     <ul>
                         <li>
                             <a href="#">
-                                <IoBarChartOutline className="icon" /> <span className="text">Home</span>
+                                <IoBarChartOutline className="icon" /> <span className="text">Dashboard</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <CiBoxes className="icon" /> <span className="text">Services</span>
+                                <CiBoxes className="icon" /> <span className="text">Produtos</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <LuCalendarClock className="icon" /> <span className="text">About</span>
+                                <LuCalendarClock className="icon" /> <span className="text">Agendamentos</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <IoMdPerson className="icon" /> <span className="text">Contact</span>
+                                <IoMdPerson className="icon" /> <span className="text">Perfil</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <PiHandshakeDuotone className="icon" /> <span className="text">Contact</span>
+                                <PiHandshakeDuotone className="icon" /> <span className="text">Pagamentos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            {/* <a href="#">
                                 <VscNotebook className="icon" /> <span className="text">Contact</span>
-                            </a>
+                            </a> */}
                         </li>
                     </ul>
                 </div>

@@ -54,6 +54,7 @@
   background-color: #e8c547;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 /* Home */
@@ -568,67 +569,65 @@ footer .footer-navigation p:hover {
   color: #e8c547;
 }
 
-/* Cadastro */
-
-.register {
+/* Background */
+.auth-page {
   background-image: url("./assets/cadastro.jpg");
   background-size: cover;
-
   width: 100%;
   height: 100vh;
 }
 
-.register-container {
+/* Container */
+.auth-container {
   background: linear-gradient(53.4deg, #232429 55.01%, rgba(77, 80, 97, 0.43) 101.02%);
-
   width: 100%;
   height: 100vh;
-
   display: flex;
   flex-direction: row;
 }
 
-.register-contents {
+/* Contents */
+.auth-contents {
   height: 100vh;
   width: 50%;
   padding-left: 10rem;
   gap: 3rem;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.register-titles {
+/* Titles */
+.auth-titles {
   color: #FFF9FB;
 }
 
-.register-titles h1 {
+.auth-titles h1 {
   font-size: 60px;
 }
 
-.register-titles p {
+.auth-titles p {
   font-size: 20px;
 }
 
-.register-titles a {
+.auth-titles a {
   color: #e8c547;
 }
 
-.register-inputs-names {
+/* Input Fields */
+.auth-inputs-names {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   width: 50%;
 }
 
-.register-inputs-names .input-container {
+.auth-inputs-names .input-container {
   margin: 0;
   width: 48%;
 }
 
-.register-inputs-names .input-container input {
+.auth-inputs-names .input-container input {
   width: 100%;
 }
 
@@ -641,10 +640,8 @@ footer .footer-navigation p:hover {
   width: 50%;
   padding: 20px;
   background-color: #4D5061;
-
   font-size: 16px;
   color: #FFF9FB;
-
   border: none;
   border-radius: 15px;
   outline: none;
@@ -655,12 +652,9 @@ footer .footer-navigation p:hover {
   position: absolute;
   top: 18px;
   left: 20px;
-
   color: #FFF9FB;
-
   font-size: 20px;
   pointer-events: none;
-
   transition: 0.2s ease all;
 }
 
@@ -671,59 +665,18 @@ footer .footer-navigation p:hover {
   color: #333;
 }
 
-.btn-register {
+/* Buttons */
+.auth-btn {
   width: 50%;
   padding: 20px;
   background-color: #e8c547;
-
   font-size: 20px;
   color: #1d1d20;
-
   border: none;
   border-radius: 15px;
   outline: none;
   box-sizing: border-box;
-}
-
-.login-contents {
-  height: 100vh;
-  width: 50%;
-  padding-left: 10rem;
-  gap: 2rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.login-titles {
-  color: #FFF9FB;
-}
-
-.login-titles h1 {
-  font-size: 60px;
-}
-
-.login-titles p {
-  font-size: 20px;
-}
-
-.login-titles a {
-  color: #e8c547;
-}
-
-.btn-login {
-  width: 50%;
-  padding: 20px;
-
-  background-color: #e8c547;
-  font-size: 20px;
-  color: #1d1d20;
-
-  border: none;
-  border-radius: 15px;
-  outline: none;
-  box-sizing: border-box;
+  cursor: pointer;
 }
 
 /* ProductHeader */

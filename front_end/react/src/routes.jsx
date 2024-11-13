@@ -6,6 +6,7 @@ import Cadastrar from "./website/pages/Cadastro/Cadastro";
 import Login from "./website/pages/Login/Login"; 
 import RecuperarSenha from "./website/pages/RecuperarSenha/RecuperarSenha.jsx";
 import Products from "./website/pages/Products/Products.jsx";
+import Cliente from"./website/pages/Cliente/Cliente.jsx";
 
 function Rotas() {
     return (
@@ -17,6 +18,7 @@ function Rotas() {
                     <Route path="/produtos" element={<Products />} />
                     <Route path="/login" element={<Login />} /> 
                     <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+                    <Route path="/cliente" element={<Cliente />} /> 
                 </Routes>
             </BrowserRouter>
         </>

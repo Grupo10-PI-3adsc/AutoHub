@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Header from "../../components/Header";
+import axios from "axios";
 
+const apiUrl = "http://localhost:8080";
 
 function Login() {
     const navigate = useNavigate();
@@ -19,59 +21,52 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {
-            email,
-            password
-        };
-
+        const data = { email, password };
         try {
-            const response = await fetch(`http://localhost:8080/auth/login`, {
-                method: "POST",
+            const response = await axios.post(`${apiUrl}/auth/login`, data, {
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             });
 
-            if (response.ok) {
-                const responseData = await response.json(); 
-                const token = responseData.token; 
-                const userName = responseData.nome;
+            const { token, nome } = response.data;
 
-                if (token) {
-                    localStorage.setItem("token", token);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Login realizado com sucesso! ' + userName,
-                        text: 'Seja bem-vindo!',
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then(() => {
-                        navigate("/produtos");
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Token não recebido',
-                        text: 'Ocorreu um problema ao realizar o login'
-                    });
-                }
+            if (token) {
+                localStorage.setItem("token", token);
+                Swal.fire({
+                    icon: 'success',
+                    title: `Login realizado com sucesso, ${nome}!`,
+                    text: 'Seja bem-vindo!',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+                    navigate("/produtos");
+                });
             } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Token não recebido',
+                    text: 'Ocorreu um problema ao realizar o login'
+                });
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Falha no login',
                     text: 'Credenciais inválidas'
                 });
+            } else {
+                console.error("Erro ao enviar dados:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Erro ao enviar dados. Tente novamente mais tarde.'
+                });
             }
-        } catch (error) {
-            console.error("Erro ao enviar dados:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: 'Erro ao enviar dados. Tente novamente mais tarde.'
-            });
         }
-    }
+    };
 
     return (
         <>

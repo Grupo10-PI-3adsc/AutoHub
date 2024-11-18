@@ -1,37 +1,91 @@
+import Update from "../components/ClientUpdate";
 import { FaTrash } from "react-icons/fa";
 import { FaPencilAlt } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Table = () => {
-    const dados = [
-        { Nome: 'Alice', Email: 'alice@example.com', Contato: '(11) 99999-0001' },
-        { Nome: 'Bob', Email: 'bob@example.com', Contato: '(21) 98888-0002' },
-        { Nome: 'Carlos', Email: 'carlos@example.com', Contato: '(31) 97777-0003' },
-        { Nome: 'Diana', Email: 'diana@example.com', Contato: '(41) 96666-0004' },
-        { Nome: 'Eduardo', Email: 'eduardo@example.com', Contato: '(51) 95555-0005' },
-    ];
+  const [mostrarUpdate, setMostrarUpdate] = useState(false);
+  const [dados, setDados] = useState([]);
 
-    return (
-        <div className="table-container">
-            <div className="table-header">
-                <div className="table-column">Nome</div>
-                <div className="table-column">Email</div>
-                <div className="table-column">Contato</div>
-                <div className="table-actions-header"></div>
-            </div>
+  const handleUpdateCliente = () => {
+    setMostrarUpdate((prevState) => !prevState);
+  };
 
-            {dados.map((tupla, index) => (
-                <div key={index} className="table-row">
-                    <div className="table-column">{tupla.Nome}</div>
-                    <div className="table-column">{tupla.Email}</div>
-                    <div className="table-column">{tupla.Contato}</div>
-                    <div className="table-actions">
-                        <FaTrash />
-                        <FaPencilAlt />
-                    </div>
-                </div>
-            ))}
+  useEffect(() => {
+    if (mostrarUpdate) {
+      document.body.style.overflow = "auto";
+    } 
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mostrarUpdate]);
+
+  useEffect(() => {
+    const fetchDados = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/usuarios', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        const dadosDoBanco = response.data;
+        console.log("Dados recebidos da API:", dadosDoBanco);
+
+        if (Array.isArray(dadosDoBanco)) {
+          setDados(dadosDoBanco);
+        } else {
+          console.error("Dados retornados não são um array:", dadosDoBanco);
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 403) {
+          console.error("Acesso proibido: verifique as permissões do usuário.");
+        } else {
+          console.error("Erro ao buscar dados:", error);
+        }
+      }
+    };
+
+    fetchDados();
+  }, []);
+
+  return (
+    <>
+      {mostrarUpdate && <Update setMostrarUpdate={setMostrarUpdate} />}
+      <div className="table-container" style={{ maxHeight: "400px", overflowY: "auto" }}>
+        <div className="table-header">
+          <div className="table-column">Id</div>
+          <div className="table-column">Nome</div>
+          <div className="table-column">Email</div>
+          <div className="table-column">CNPJ/CPF</div>
+          <div className="table-column">Função</div>
+          <div className="table-column">Contato</div>
+          <div className="table-actions-header"></div>
         </div>
-    );
+
+        {dados.length > 0 ? (
+          dados.map((tupla, index) => (
+            <div key={index} className="table-row">
+              <div className="table-column">{tupla.id || "id não disponível"}</div>
+              <div className="table-column">{tupla.nome || "Nome não disponível"}</div>
+              <div className="table-column">{tupla.email || "Email não disponível"}</div>
+              <div className="table-column">{tupla.cpfCnpj || "CPF/CNPJ não disponível"}</div>
+              <div className="table-column">{tupla.role || "Papel não disponível"}</div>
+              <div className="table-column">{tupla.telefone || "Contato não disponível"}</div>
+              <div className="table-actions">
+                <FaTrash />
+                <FaPencilAlt onClick={handleUpdateCliente} />
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>Carregando dados...</p>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Table;

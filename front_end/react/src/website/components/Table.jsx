@@ -77,6 +77,7 @@ const Table = () => {
               <div className="table-actions">
                 <FaTrash />
                 <FaPencilAlt onClick={handleUpdateCliente} />
+                {/* <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} /> */}
               </div>
             </div>
           ))

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Header from "../../components/Header";
 
+const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 
 function Login() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Login() {
         };
 
         try {
-            const response = await fetch(`http://localhost:8080/auth/login`, {
+            const response = await fetch(`${apiUrl}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

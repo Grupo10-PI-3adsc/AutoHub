@@ -1,26 +1,40 @@
+import React, { useState, useCallback } from "react";
 import ProductHeader from "../../components/ProductHeader";
 import SideBar from "../../components/SideBar";
 import Table from "../../components/Table";
-import Cadastro from "../../components/ClientRegister"; // Certifique-se de que está importando corretamente
+import Cadastro from "../../components/ClientRegister";
 import { IoTrashBin } from "react-icons/io5";
-import { FaPen } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { FaPen, FaSearch } from "react-icons/fa";
+import swal from "sweetalert2";
+import axios from "axios";
+
+const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 
 function Cliente() {
     const [mostrarCadastro, setMostrarCadastro] = useState(false);
 
-    const handleAdicionarCliente = () => {
-        setMostrarCadastro((prevState) => !prevState); 
-    };
+    const handleAdicionarCliente = useCallback(() => {
+        setMostrarCadastro((prevState) => !prevState);
+    }, []);
 
-    const handleDeletarCliente = () => {
-        console.log('teste');
-    };
+    // Não deletamos o cliente, apenas inativamos!
+    const handleDeletarCliente = useCallback(async (id) => {
+        try {
+            const response = await axios.put(`${apiUrl}/inativar/${id}`);
+
+            if (response.status === 204) {
+                swal.fire('Sucesso', 'Cliente foi inativado com sucesso', 'success');
+            } else {
+                swal.fire('Erro', 'Erro ao executar o pedido', 'error');
+            }
+        } catch (error) {
+            swal.fire('Erro', 'Erro ao conectar com a API \n errn Connect', 'error');
+        }
+    }, []);
 
     return (
         <>
-        {mostrarCadastro && <Cadastro setMostrarCadastro={setMostrarCadastro} />}
+            {mostrarCadastro && <Cadastro setMostrarCadastro={setMostrarCadastro} />}
             <ProductHeader />
             <div className="clients">
                 <SideBar />
@@ -38,13 +52,12 @@ function Cliente() {
                     </div>
 
                     <div className="table-container">
-                      <Table />
+                        <Table />
                     </div>
                 </div>
             </div>
         </>
-    )
-
+    );
 }
 
 export default Cliente;

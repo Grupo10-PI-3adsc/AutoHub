@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Header from "../../components/Header";
 
-const apiUrl = 'http://localhost:8080';
+const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 
 function Cadastrar() {
     const navigate = useNavigate();

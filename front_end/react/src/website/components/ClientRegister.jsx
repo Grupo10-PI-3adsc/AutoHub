@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 
-function ClientRegister({ setMostrarCadastro }) {
+const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 
+function ClientRegister({ setMostrarCadastro }) {
     const [clientData, setClientData] = useState({
         nome: '',
         email: '',
@@ -12,69 +13,72 @@ function ClientRegister({ setMostrarCadastro }) {
     });
 
     // Função para atualizar os valores do formulário
-    const handleInputChange = (event) => {
+    const handleInputChange = useCallback((event) => {
         const { name, value } = event.target;
         setClientData((prevData) => ({
             ...prevData,
             [name]: value
         }));
-    };
+    }, []);
 
     // Função para adicionar um novo cliente
     const handleAddClient = async (event) => {
-        event.preventDefault(); // Impede o envio padrão do formulário
-        console.log('Cadastrando cliente:', clientData); // Verifica os dados
+        event.preventDefault();
+        console.log('Cadastrando cliente:', clientData);
         try {
-            const response = await axios.post('http://localhost:8080/auth/register', clientData, {
+            const response = await axios.post(`${apiUrl}/auth/register`, clientData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
             console.log("Cliente cadastrado:", response.data);
-            setMostrarCadastro(false); // Fecha o modal após cadastro
+            setMostrarCadastro(false);
         } catch (error) {
             console.error("Erro ao cadastrar cliente:", error);
         }
     };
 
-    // Função para cancelar e fechar o modal
-    const handleRemoverCad = () => {
+    // aqui abre o modal de cadastro de um novop cliente
+    const handleRemoverCad = useCallback(() => {
         setMostrarCadastro(false);
-    };
+    }, [setMostrarCadastro]);
 
     return (
         <div className="modal">
             <div className="modal-container client register">
                 <h1>Cadastro de Cliente</h1>
-                <div className="modal-inputs">
-                    <div className="modal-input-field">
-                        <p>Nome</p>
-                        <input type="text" name="nome" value={clientData.nome} onChange={handleInputChange}/>
+                <form onSubmit={handleAddClient}>
+                    <div className="modal-inputs">
+                        {['nome', 'email', 'cpfCnpj', 'telefone', 'password'].map((field) => (
+                            <FormField
+                                key={field}
+                                field={field}
+                                value={clientData[field]}
+                                onChange={handleInputChange}
+                            />
+                        ))}
                     </div>
-                    <div className="modal-input-field">
-                        <p>E-mail</p>
-                        <input type="text" name="email" value={clientData.email} onChange={handleInputChange}/>
+                    <div className="modal-buttons">
+                        <button type="button" className="btn-modal cancelar" onClick={handleRemoverCad}>Cancelar</button>
+                        <button type="submit" className="btn-modal cadastrar">Cadastrar</button>
                     </div>
-                    <div className="modal-input-field">
-                        <p>CPF/CNPJ</p>
-                        <input type="text" required name="cpfCnpj" value={clientData.cpfCnpj} onChange={handleInputChange}/>
-                    </div>
-                    <div className="modal-input-field">
-                        <p>Telefone</p>
-                        <input type="text" required name="telefone" value={clientData.telefone} onChange={handleInputChange}/>
-                    </div>
-                    <div className="modal-input-field">
-                        <p>Senha</p>
-                        <input type="password" required name="password" value={clientData.password} onChange={handleInputChange}/>
-                    </div>
-                </div>
-                <div className="modal-buttons">
-                    <button className="btn-modal cancelar" onClick={handleRemoverCad}>Cancelar</button>
-                    <button className="btn-modal cadastrar" onClick={handleAddClient}>Cadastrar</button>
-                </div>
+                </form>
             </div>
         </div>
     );
 }
+
+const FormField = ({ field, value, onChange }) => (
+    <div className="modal-input-field">
+        <p>{field.charAt(0).toUpperCase() + field.slice(1)}</p>
+        <input
+            type={field === 'password' ? 'password' : 'text'}
+            name={field}
+            value={value}
+            onChange={onChange}
+            required
+        />
+    </div>
+);
 
 export default ClientRegister;

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import Header from "../../components/Header";
 import axios from "axios";
 
-const apiUrl = "http://localhost:8080";
+const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 
 function Login() {
     const navigate = useNavigate();
@@ -24,11 +24,11 @@ function Login() {
         const data = { email, password };
         try {
             const response = await axios.post(`${apiUrl}/auth/login`, data, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
+               headers: {
+                "Content-Type": "application/json"
+                }
+                });
+
 
             const { token, nome } = response.data;
 

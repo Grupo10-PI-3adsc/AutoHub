@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function ClientRegister({ setMostrarUpdate }) {
+function ClientUpdate({ setMostrarUpdate }) {
     const apiUrl = process.env.VITE_CLOUD_API_URL;
 
     const [formatdata, setFormData] = useState({

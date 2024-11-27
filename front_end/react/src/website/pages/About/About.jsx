@@ -1,3 +1,5 @@
+import { FaHandshake, FaShieldAlt, FaChartLine } from 'react-icons/fa';
+
 function AboutUs() {
     return (
         <>
@@ -10,21 +12,21 @@ function AboutUs() {
 
                     <div className="about-us-info">
                         <div className="about-us-topic">
-                            <span><img src="" alt="" /></span>
+                            <span className='icon-about-us'><FaHandshake fontSize={'40'}/></span>
                             <div className="topic-text">
                                 <h2>Parceria com o cliente</h2>
                                 <p>A relação com nossos clientes vai além do conserto de carros; é uma parceria baseada na confiança mútua.</p>
                             </div>
                         </div>
                         <div className="about-us-topic">
-                            <span><img src="" alt="" /></span>
+                            <span className='icon-about-us'><FaShieldAlt fontSize={'40'}/></span>
                             <div className="topic-text">
                                 <h2>Serviço Garantido</h2>
                                 <p>Juntos, trabalhamos incansavelmente para diagnosticar e resolver problemas mecânicos, utilizando as últimas tecnologias e técnicas aprimoradas.</p>
                             </div>
                         </div>
                         <div className="about-us-topic">
-                            <span><img src="" alt="" /></span>
+                            <span className='icon-about-us'><FaChartLine fontSize={'40'} /></span>
                             <div className="topic-text">
                                 <h2>Aprendizado e Crescimento</h2>
                                 <p>Além dos serviços de reparo, contribuímos para a comunidade automotiva por meio de workshops educativos, dicas de manutenção preventiva e compartilhamento de conhecimento.</p>

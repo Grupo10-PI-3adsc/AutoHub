@@ -449,6 +449,13 @@
   width: 100%;
 }
 
+.icon-about-us{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 /* Contact */
 
 .contact {
@@ -474,7 +481,6 @@
 }
 
 .contact-gps {
-  background-image: url(assets/gps.png);
   background-size: contain;
 
   width: 30%;
@@ -1250,3 +1256,9 @@ footer .footer-navigation p:hover {
   display: flex;
   gap: 10px;
 }
+
+.pointer{
+  cursor: pointer;
+}
+
+

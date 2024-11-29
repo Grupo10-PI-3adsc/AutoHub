@@ -7,6 +7,7 @@ import Login from "./website/pages/Login/Login";
 import RecuperarSenha from "./website/pages/RecuperarSenha/RecuperarSenha.jsx";
 import Products from "./website/pages/Products/Products.jsx";
 import Cliente from"./website/pages/Cliente/Cliente.jsx";
+import Carrinho from "./website/pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx";
 
 function Rotas() {
     return (
@@ -19,6 +20,7 @@ function Rotas() {
                     <Route path="/login" element={<Login />} /> 
                     <Route path="/recuperar-senha" element={<RecuperarSenha />} />
                     <Route path="/cliente" element={<Cliente />} /> 
+                    <Route path="/carrinho" element={<Carrinho />} />
                 </Routes>
             </BrowserRouter>
         </>

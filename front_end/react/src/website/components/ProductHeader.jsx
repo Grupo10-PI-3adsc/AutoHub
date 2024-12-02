@@ -1,7 +1,10 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import CarrinhoDeCompras from '../pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx';
 import styles from '../pages/CarrinhoDeCompras/ProductHeader.module.css';
+import { IoIosArrowDown } from "react-icons/io";
+
 
 function obterDataAtual() {
     const hoje = new Date();
@@ -22,6 +25,12 @@ function ProductHeader({ carrinho, setCarrinho }) {
     const [mostrarCarrinhoCompleto, setMostrarCarrinhoCompleto] = useState(false);
     const carrinhoRef = useRef(null);
     const cartIconRef = useRef(null);
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
 
     useEffect(() => {
         const intervalo = setInterval(() => {
@@ -60,9 +69,24 @@ function ProductHeader({ carrinho, setCarrinho }) {
                     <p>{horaAtual}</p>
                     <p>{dataAtual}</p>
                 </div>
-                <div className="product-header-perfil">
-                    <img src="../src/assets/placeholder.png" alt="" />
-                    <p>Super_admin</p>
+                <div className="product-header-perfil" onClick={toggleDropdown}>
+                    <div className="product-header-perfil-header">
+                        <img src="../src/assets/placeholder.png" alt="" />
+                        <div className="product-header-perfil-header-text">
+                            <p>Super_admin</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
+                        </div>
+                    </div>
+                    {isOpen && (
+                        <ul className="product-header-perfil-expanded">
+                            <li><div className="product-header-perfil-info">
+                                <h4>Super Admin</h4> <p>superadm@gmail.com</p>
+                            </div></li>
+                            <li>Meu Perfil</li>
+                            <li>Configurações</li>
+                            <li>Notificações</li>
+                            <li>Sair</li>
+                        </ul>
+                    )}
                 </div>
                 <div className={styles.cartIconContainer}>
                     <FaShoppingCart ref={cartIconRef} className={styles.cartIcon} onClick={toggleCarrinho} />

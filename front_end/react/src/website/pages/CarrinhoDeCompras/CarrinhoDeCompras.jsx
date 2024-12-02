@@ -1,26 +1,47 @@
-import React from 'react';
-import CarrinhoDeCompras from '../../components/CarrinhoDeCompras';
-import styles from './CarrinhoDeCompras.module.css';
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import Swal from "sweetalert2";
+import styles from "./carrinhoDeCompras.module.css";
 
-const CarrinhoDeCompras = () => {
-  const [carrinho, setCarrinho] = useState([
-    { id: 1, nome: "Pneu Aro 15", preco: 350.0, quantidade: 2 },
-    { id: 2, nome: "Óleo de Motor 5L", preco: 200.0, quantidade: 1 },
-  ]);
+const CarrinhoDeCompras = ({ carrinho, setCarrinho }) => {
+
+  useEffect(() => {
+    const carrinhoLocal = JSON.parse(localStorage.getItem("carrinho")) || [];
+    setCarrinho(carrinhoLocal);
+  }, [setCarrinho]);
 
   const removerItem = (id) => {
-    setCarrinho(carrinho.filter((item) => item.id !== id));
+    const item = carrinho.find((produto) => produto.id === id);
+    Swal.fire({
+      title: "Tem certeza?",
+      text: `Deseja realmente remover "${item?.nome}" do carrinho?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "Green",
+      confirmButtonText: "Sim, remover!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const novoCarrinho = carrinho.filter((item) => item.id !== id);
+        setCarrinho(novoCarrinho);
+        localStorage.setItem("carrinho", JSON.stringify(novoCarrinho));
+        Swal.fire(
+          "Removido!",
+          `"${item?.nome}" foi removido do carrinho.`,
+          "success"
+        );
+      }
+    });
   };
 
   const alterarQuantidade = (id, quantidade) => {
-    setCarrinho(
-      carrinho.map((item) =>
-        item.id === id
-          ? { ...item, quantidade: Math.max(1, quantidade) }
-          : item
-      )
+    const novoCarrinho = carrinho.map((item) =>
+      item.id === id
+        ? { ...item, quantidade: Math.max(1, quantidade) }
+        : item
     );
+    setCarrinho(novoCarrinho);
+    localStorage.setItem("carrinho", JSON.stringify(novoCarrinho));
   };
 
   const calcularTotal = () => {
@@ -31,14 +52,14 @@ const CarrinhoDeCompras = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.header}>Carrinho de Compras</h2>
-      <div style={styles.cartItems}>
+    <div className={styles.container}>
+      <h2 className={styles.header}>Carrinho de Compras</h2>
+      <div className={styles.cartItems}>
         {carrinho.length > 0 ? (
           carrinho.map((item) => (
-            <div key={item.id} style={styles.cartItem}>
-              <span style={styles.itemName}>{item.nome}</span>
-              <div style={styles.actions}>
+            <div key={item.id} className={styles.cartItem}>
+              <span className={styles.itemName}>{item.nome}</span>
+              <div className={styles.actions}>
                 <input
                   type="number"
                   value={item.quantidade}
@@ -46,12 +67,14 @@ const CarrinhoDeCompras = () => {
                   onChange={(e) =>
                     alterarQuantidade(item.id, parseInt(e.target.value, 10))
                   }
-                  style={styles.input}
+                  className={styles.input}
                 />
-                <span style={styles.price}>R$ {item.preco.toFixed(2)}</span>
+                <span className={styles.price}>
+                  R$ {item.preco.toFixed(2)}
+                </span>
                 <button
                   onClick={() => removerItem(item.id)}
-                  style={styles.removeButton}
+                  className={styles.removeButton}
                 >
                   Remover
                 </button>
@@ -59,13 +82,13 @@ const CarrinhoDeCompras = () => {
             </div>
           ))
         ) : (
-          <p style={styles.empty}>Seu carrinho está vazio.</p>
+          <p className={styles.empty}>Seu carrinho está vazio.</p>
         )}
       </div>
-      <div style={styles.total}>
+      <div className={styles.total}>
         <h3>Total: R$ {calcularTotal().toFixed(2)}</h3>
       </div>
-      <button style={styles.checkoutButton}>Finalizar Compra</button>
+      <button className={styles.checkoutButton}>Finalizar Compra</button>
     </div>
   );
 };

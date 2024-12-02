@@ -1,0 +1,116 @@
+
+.products-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Organiza os cartões em colunas responsivas */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Efeito ao passar o mouse */
+}
+
+
+.container-product-img {
+    width: 90%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+
+.product-info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.product-subtitle {
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+
+.product-price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FF5722; 
+}
+
+.product-installment {
+    font-size: 1rem;
+    color: #555;
+}
+
+.buy-button {
+    background-color: #0d0d0d;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #e64a19;
+}
+
+
+.addCart-button {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.addCart-button:hover {
+    background-color: #ddd; 
+}
+
+
+.cart-icon {
+    font-size: 1.2rem;
+}

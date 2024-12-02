@@ -1,10 +1,20 @@
-import ProductHeader from "../../components/ProductHeader";
+import React, { useState, useEffect } from "react";
+import ProductHeader from "../../components/ProductHeader.jsx";
 import SideBar from "../../components/SideBar";
+import ProductsCard from "../../components/ProductsCard/ProductsCard.jsx"; 
+import styles from "../Products/Products.module.css";
 
 function Products() {
+    const [carrinho, setCarrinho] = useState([]);
+
+    useEffect(() => {
+        const carrinhoLocal = JSON.parse(localStorage.getItem("carrinho")) || [];
+        setCarrinho(carrinhoLocal);
+    }, []);
+
     return (
         <>
-            <ProductHeader />
+        <ProductHeader carrinho={carrinho} setCarrinho={setCarrinho} />
             <div className="products">
                 <SideBar />
                 <div className="products-container">
@@ -19,22 +29,13 @@ function Products() {
                         <img src='../src/assets/seta-direita.png' alt="" />
                     </div>
 
-                    <div className="products-cards">
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
-                        <img src='../src/assets/produto.png' alt="" />
+                    <div className={styles['products-cards-container']}>
+                        <ProductsCard atualizarCarrinho={setCarrinho} />
                     </div>
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default Products;

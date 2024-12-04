@@ -449,7 +449,7 @@
   width: 100%;
 }
 
-.icon-about-us{
+.icon-about-us {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -715,6 +715,8 @@ footer .footer-navigation p:hover {
   position: relative;
   width: 15%;
   height: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .product-header-perfil-header {
@@ -739,7 +741,7 @@ footer .footer-navigation p:hover {
 
 .product-header-perfil-header img {
   width: 15%;
-  height: 15%;
+  height: 100%;
 
   border-radius: 50px;
 }
@@ -875,26 +877,26 @@ footer .footer-navigation p:hover {
   min-width: 100%;
   height: 105vh;
   background-color: rgb(77, 80, 97, 0.3);
-  position: absolute;  
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
 }
 
 
-.modal2{
+.modal2 {
   max-width: 100%;
   min-width: 100%;
   height: 105vh;
   margin-left: -14.3%;
   margin-top: -24.3%;
   background-color: rgb(77, 80, 97, 0.3);
-  position: absolute;  
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y:visible;
+  overflow-y: visible;
   padding: 20px;
 }
 
@@ -1172,7 +1174,7 @@ footer .footer-navigation p:hover {
   max-width: 100%;
   margin: 0 auto;
   padding: 10px;
-  border-radius: 8px; 
+  border-radius: 8px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -1181,7 +1183,8 @@ footer .footer-navigation p:hover {
   display: flex;
   justify-content: space-between;
   color: white;
-  font-weight: bold; /* Texto em negrito */
+  font-weight: bold;
+  /* Texto em negrito */
   background-color: white;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -1214,7 +1217,7 @@ footer .footer-navigation p:hover {
   width: 20%;
   display: flex;
   justify-content: center;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .table-actions svg {
@@ -1222,13 +1225,13 @@ footer .footer-navigation p:hover {
   color: black;
   font-size: 20px;
   background-color: #DCBB45;
-  padding: 8px; 
+  padding: 8px;
   border-radius: 13px;
   transition: background-color 0.3s ease;
 }
 
 .table-actions svg:hover {
-  background-color: #d3ae1a; 
+  background-color: #d3ae1a;
 }
 
 .clients {
@@ -1261,7 +1264,7 @@ footer .footer-navigation p:hover {
   background-color: white;
   padding: 30px;
   border-radius: 8px;
-  margin-bottom: 30px; 
+  margin-bottom: 30px;
 }
 
 .button-add-client {
@@ -1330,7 +1333,7 @@ footer .footer-navigation p:hover {
   gap: 10px;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 

@@ -41,7 +41,7 @@ function ProductHeader({ carrinho, setCarrinho }) {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            
+
             if (
                 carrinhoRef.current &&
                 !carrinhoRef.current.contains(event.target) &&
@@ -87,10 +87,10 @@ function ProductHeader({ carrinho, setCarrinho }) {
                             <li>Sair</li>
                         </ul>
                     )}
-                </div>
-                <div className={styles.cartIconContainer}>
-                    <FaShoppingCart ref={cartIconRef} className={styles.cartIcon} onClick={toggleCarrinho} />
-                    <span className={styles.cartCount}>{carrinho.length}</span>
+                    <div className={styles.cartIconContainer}>
+                        <FaShoppingCart ref={cartIconRef} className={styles.cartIcon} onClick={toggleCarrinho} />
+                        {/* <span className={styles.cartCount}>{carrinho.length}</span> */}
+                    </div>
                 </div>
             </header>
             {mostrarCarrinhoCompleto && (

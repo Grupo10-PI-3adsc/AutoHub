@@ -1,8 +1,8 @@
 import ProductHeader from "./ProductHeader";
 import SideBar from "./SideBar";
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
-function EmployeeRegister() {
+function EmployeeRegister({ setMostrarCadastro }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState("Selecione uma opção");
@@ -15,6 +15,10 @@ function EmployeeRegister() {
         setSelectedOption(option);
         setIsOpen(false);
     };
+
+    const handleRemoverCad = useCallback(() => {
+        setMostrarCadastro(false);
+    }, [setMostrarCadastro]);
 
     return (
         <>
@@ -51,7 +55,7 @@ function EmployeeRegister() {
                         </div>
                     </div>
                     <div className="modal-buttons">
-                        <button className="btn-modal cancelar">Cancelar</button>
+                        <button className="btn-modal cancelar" onClick={handleRemoverCad}>Cancelar</button>
                         <button className="btn-modal cadastrar">Cadastrar</button>
                     </div>
                 </div>

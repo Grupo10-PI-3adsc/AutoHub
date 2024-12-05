@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Swal from "sweetalert2";
-import styles from "./carrinhoDeCompras.module.css";
+import styles from "./CarrinhoDeCompras.module.css";
 
 const CarrinhoDeCompras = ({ carrinho, setCarrinho }) => {
 

@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import CarrinhoDeCompras from '../pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx';
 import styles from '../pages/CarrinhoDeCompras/ProductHeader.module.css';
 import { IoIosArrowDown } from "react-icons/io";
+import ImagemPlaceHolder from "../../assets/placeholder.png"
 
 
 function obterDataAtual() {
@@ -71,7 +72,7 @@ function ProductHeader({ carrinho, setCarrinho }) {
                 </div>
                 <div className="product-header-perfil" onClick={toggleDropdown}>
                     <div className="product-header-perfil-header">
-                        <img src="../src/assets/placeholder.png" alt="" />
+                        <img src={ImagemPlaceHolder} alt="" />
                         <div className="product-header-perfil-header-text">
                             <p>Super_admin</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
                         </div>

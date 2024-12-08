@@ -1,4 +1,5 @@
 import { FaHandshake, FaShieldAlt, FaChartLine } from 'react-icons/fa';
+import ImagemAboutUs from "../../../assets/about-us.png"
 
 function AboutUs() {
     return (
@@ -8,7 +9,7 @@ function AboutUs() {
                 <p>Nossa equipe altamente qualificada compartilha de um amor pela mecânica e por compromissos de qualidade</p>
 
                 <div className="about-us-container">
-                    <img src="../src/assets/about-us.png" alt="" />
+                    <img src={ImagemAboutUs} alt="" />
 
                     <div className="about-us-info">
                         <div className="about-us-topic">

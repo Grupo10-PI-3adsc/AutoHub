@@ -4,7 +4,7 @@ import Info from "../Info/Info";
 import Services from "../Services/Services";
 import AboutUs from "../About/About";
 import Contact from "../Contact/Contact";
-import ImagemHome from "../../../assets/home.png";
+import ImagemHome from "../../../assets/home.png"
 
 function Home() {
 

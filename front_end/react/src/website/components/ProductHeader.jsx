@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import CarrinhoDeCompras from '../pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx';
 import styles from '../pages/CarrinhoDeCompras/ProductHeader.module.css';
 import { IoIosArrowDown } from "react-icons/io";
+import ImagemPlaceHolder from "../../assets/placeholder.png"
 
 
 function obterDataAtual() {
@@ -41,7 +42,7 @@ function ProductHeader({ carrinho, setCarrinho }) {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            
+
             if (
                 carrinhoRef.current &&
                 !carrinhoRef.current.contains(event.target) &&
@@ -71,7 +72,7 @@ function ProductHeader({ carrinho, setCarrinho }) {
                 </div>
                 <div className="product-header-perfil" onClick={toggleDropdown}>
                     <div className="product-header-perfil-header">
-                        <img src="../src/assets/placeholder.png" alt="" />
+                        <img src={ImagemPlaceHolder} alt="" />
                         <div className="product-header-perfil-header-text">
                             <p>Super_admin</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
                         </div>
@@ -87,10 +88,10 @@ function ProductHeader({ carrinho, setCarrinho }) {
                             <li>Sair</li>
                         </ul>
                     )}
-                </div>
-                <div className={styles.cartIconContainer}>
-                    <FaShoppingCart ref={cartIconRef} className={styles.cartIcon} onClick={toggleCarrinho} />
-                    <span className={styles.cartCount}>{carrinho.length}</span>
+                    <div className={styles.cartIconContainer}>
+                        <FaShoppingCart ref={cartIconRef} className={styles.cartIcon} onClick={toggleCarrinho} />
+                        {/* <span className={styles.cartCount}>{carrinho.length}</span> */}
+                    </div>
                 </div>
             </header>
             {mostrarCarrinhoCompleto && (

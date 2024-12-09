@@ -5,6 +5,8 @@ import Header from "../../components/Header";
 import axios from "axios";
 
 const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+console.log(import.meta.env);
+console.log(import.meta.env.VITE_CLOUD_API_URL);
 console.log(`${apiUrl}/auth/login`)
 
 function Login() {

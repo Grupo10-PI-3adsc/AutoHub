@@ -7,6 +7,7 @@ import { PiHandshakeDuotone } from "react-icons/pi";
 import { VscNotebook } from "react-icons/vsc";
 
 
+
 const SideBar = () => {
     return (
         <>
@@ -17,7 +18,7 @@ const SideBar = () => {
                 <div className="sidebar-container">
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="/dashboard">
                                 <IoBarChartOutline className="icon" /> <span className="text">Dashboard</span>
                             </a>
                         </li>

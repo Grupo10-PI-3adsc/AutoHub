@@ -8,7 +8,8 @@ import { FaPen, FaSearch } from "react-icons/fa";
 import swal from "sweetalert2";
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+const apiUrl = "https://apiautohub.azurewebsites.net";
 
 function Pedidos() {
     const [mostrarCadastro, setMostrarCadastro] = useState(false);

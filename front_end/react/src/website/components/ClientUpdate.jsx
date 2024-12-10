@@ -2,7 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 
 function ClientUpdate({ setMostrarUpdate }) {
-    const apiUrl = process.env.VITE_CLOUD_API_URL;
+    const apiUrl = "https://apiautohub.azurewebsites.net";
+    // const apiUrl = process.env.VITE_CLOUD_API_URL;
 
     const [formatdata, setFormData] = useState({
         id: '',

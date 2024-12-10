@@ -4,7 +4,8 @@ import Swal from 'sweetalert2';
 import Header from "../../components/Header";
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+const apiUrl = "https://apiautohub.azurewebsites.net";
 console.log(import.meta.env);
 console.log(import.meta.env.VITE_CLOUD_API_URL);
 console.log(`${apiUrl}/auth/login`)

@@ -940,6 +940,36 @@ footer .footer-navigation p:hover {
   gap: 40px;
 }
 
+
+.modal-cadastrar-clientes{
+
+  height: 60%;
+  width: 30%;
+
+  background-color: #30323E;
+  border: none;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #F5F0F2;
+}
+
+.modal-update{
+  height: 70%;
+}
+
+.modal-cadastrar-clientes form{
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .modal-container h1 {
   color: #F5F0F2;
   font-size: 35px;

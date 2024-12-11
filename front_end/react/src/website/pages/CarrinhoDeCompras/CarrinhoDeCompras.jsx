@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import styles from "./carrinhoDeCompras.module.css";
+import styles from "./CarrinhoDeCompras.module.css";
 
 const CarrinhoDeCompras = ({ carrinho, setCarrinho }) => {
   const navigate = useNavigate();

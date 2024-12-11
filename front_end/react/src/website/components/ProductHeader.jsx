@@ -71,7 +71,7 @@ const ProductHeader = ({ carrinho = [], setCarrinho }) => { // Garantir que carr
                     <div className="product-header-perfil-header">
                         <img src={ImagemPlaceHolder} alt="" />
                         <div className="product-header-perfil-header-text">
-                            <p>Super_admin</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
+                            <p>{localStorage.getItem('nome')}</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
                         </div>
                     </div>
                     {isOpen && (

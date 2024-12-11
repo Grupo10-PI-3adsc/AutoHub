@@ -45,7 +45,7 @@ function ClientRegister({ setMostrarCadastro }) {
 
     return (
         <div className="modal">
-            <div className="modal-container client register">
+            <div className="modal-cadastrar-clientes">
                 <h1>Cadastro de Cliente</h1>
                 <form onSubmit={handleAddClient}>
                     <div className="modal-inputs">

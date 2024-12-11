@@ -6,6 +6,32 @@ import axios from "axios";
 
 const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 
+const handleDeleteCliente = (id) => {
+  console.log("id para ser deletado: " + id)
+  const fetchDados = async () => {
+    try {
+      const response = await axios.put(`${apiUrl}/usuarios/inativar/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      const dadosDoBanco = response.data;
+      console.log("Dados recebidos da API:", dadosDoBanco);
+
+  
+    } catch (error) {
+      if (error.response && error.response.status === 403) {
+        console.error("Acesso proibido: verifique as permissões do usuário.");
+      } else {
+        console.error("Erro ao buscar dados:", error);
+      }
+    }
+  };
+
+  fetchDados();
+};
+
 
 const TableClients = () => {
   const [mostrarUpdate, setMostrarUpdate] = useState(false);
@@ -14,6 +40,7 @@ const TableClients = () => {
   const handleUpdateCliente = () => {
     setMostrarUpdate((prevState) => !prevState);
   };
+
 
   useEffect(() => {
     if (mostrarUpdate) {
@@ -54,6 +81,9 @@ const TableClients = () => {
     fetchDados();
   }, []);
 
+  const dadosFiltrados = dados.filter((tupla) => tupla.role == "USER");
+
+
   return (
     <>
       {mostrarUpdate && <Update setMostrarUpdate={setMostrarUpdate} />}
@@ -68,8 +98,8 @@ const TableClients = () => {
           <div className="table-actions-header"></div>
         </div>
 
-        {dados.length > 0 ? (
-          dados.map((tupla, index) => (
+        {dadosFiltrados.length > 0 ? (
+          dadosFiltrados.map((tupla, index) => (
             <div key={index} className="table-row">
               <div className="table-column">{tupla.id || "id não disponível"}</div>
               <div className="table-column">{tupla.nome || "Nome não disponível"}</div>
@@ -78,8 +108,8 @@ const TableClients = () => {
               <div className="table-column">{tupla.role || "Papel não disponível"}</div>
               <div className="table-column">{tupla.telefone || "Contato não disponível"}</div>
               <div className="table-actions">
-                <FaTrash />
-                <FaPencilAlt onClick={handleUpdateCliente} />
+                <FaTrash onClick={() => handleDeleteCliente(tupla.id)}/>
+                <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} />
                 {/* <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} /> */}
               </div>
             </div>
@@ -96,7 +126,7 @@ const TableEmployees = () => {
   const [mostrarUpdate, setMostrarUpdate] = useState(false);
   const [dados, setDados] = useState([]);
 
-  const handleUpdateCliente = () => {
+  const handleUpdateEmployee = () => {
     setMostrarUpdate((prevState) => !prevState);
   };
 
@@ -139,6 +169,8 @@ const TableEmployees = () => {
     fetchDados();
   }, []);
 
+  const dadosFiltrados = dados.filter((tupla) => tupla.role !== "USER");
+
   return (
     <>
       {mostrarUpdate && <Update setMostrarUpdate={setMostrarUpdate} />}
@@ -153,9 +185,9 @@ const TableEmployees = () => {
           <div className="table-actions-header"></div>
         </div>
 
-        {dados.length > 0 ? (
-          dados.map((tupla, index) => (
-            <div key={index} className="table-row">
+        {dadosFiltrados.length > 0 ? (
+          dadosFiltrados.map((tupla, index) => (
+              <div key={index} className="table-row">
               <div className="table-column">{tupla.id || "id não disponível"}</div>
               <div className="table-column">{tupla.nome || "Nome não disponível"}</div>
               <div className="table-column">{tupla.email || "Email não disponível"}</div>
@@ -163,8 +195,8 @@ const TableEmployees = () => {
               <div className="table-column">{tupla.role || "Papel não disponível"}</div>
               <div className="table-column">{tupla.telefone || "Contato não disponível"}</div>
               <div className="table-actions">
-                <FaTrash />
-                <FaPencilAlt onClick={handleUpdateCliente} />
+                <FaTrash onClick={() => handleDeleteCliente(tupla.id)} />
+                <FaPencilAlt onClick={handleUpdateEmployee} />
                 {/* <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} /> */}
               </div>
             </div>
@@ -250,11 +282,12 @@ const TableOrders = () => {
               <div className="table-column">{tupla.role || "Papel não disponível"}</div>
               <div className="table-column">{tupla.telefone || "Contato não disponível"}</div>
               <div className="table-actions">
-                <FaTrash />
+                <FaTrash onClick={() => handleDeleteCliente(tupla.id)} />
                 <FaPencilAlt onClick={handleUpdateCliente} />
                 {/* <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} /> */}
               </div>
             </div>
+            
           ))
         ) : (
           <p>Carregando dados...</p>
@@ -335,7 +368,7 @@ const TableServices = () => {
               <div className="table-column">{tupla.role || "Papel não disponível"}</div>
               <div className="table-column">{tupla.telefone || "Contato não disponível"}</div>
               <div className="table-actions">
-                <FaTrash />
+                <FaTrash onClick={() => handleDeleteCliente(tupla.id)} />
                 <FaPencilAlt onClick={handleUpdateCliente} />
                 {/* <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} /> */}
               </div>

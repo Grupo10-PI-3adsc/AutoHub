@@ -1445,3 +1445,101 @@ footer .footer-navigation p:hover {
   border: none;
   color: #FFF9FB;
 }
+
+/* Dashboard */
+.kpi-card2 {
+  background-color: #444444c5;
+  width: 25px;
+  height: 25px;
+}
+
+.products-container {
+  width: 150vh;
+}
+
+.Quebra-maiores {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 300px;
+  padding: 0 15px; /* Adiciona espaçamento entre os cards */
+}
+
+.kpis-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os cards "quebrem" para a linha seguinte */
+  justify-content: center; /* Centraliza os cards */
+  margin-top: -40px;
+  gap: 20px; /* Espaçamento entre os cards */
+}
+
+.kpi-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 28%; /* Ajustado para o tamanho dos cards */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+}
+
+.kpi-card h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.kpi-card p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+/* Cards maiores */
+.kpi-card2 {
+  display: flex;
+  flex-direction: column; /* Organiza o conteúdo em coluna */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  height: 65%;
+  width: 45%; /* Tamanho do card */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.kpi-card2 h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.kpi-card2 p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.ParteGraficos{
+  margin-top: 25px;
+  margin-left: 50px;
+}
+
+.chart-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px; /* Espaçamento entre os gráficos */
+}
+
+.chart-container {
+  width: 48%;
+}

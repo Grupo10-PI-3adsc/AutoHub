@@ -1,0 +1,36 @@
+/* Adicionar no seu CSS */
+.kpis-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  .kpi-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 18%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .kpi-card h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .kpi-card p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  .chart-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .chart-container {
+    width: 48%;
+  }

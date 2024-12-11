@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "chart.js": "^4.4.7",
     "install": "^0.13.0",
-    "npm": "^10.9.1"
+    "npm": "^10.9.1",
+    "react-chartjs-2": "^5.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

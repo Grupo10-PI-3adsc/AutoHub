@@ -12,7 +12,7 @@ import Pedidos from "./website/pages/Pedidos/Pedidos.jsx";
 import Ordens from "./website/pages/Ordens/Ordens.jsx";
 import Carrinho from "./website/pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx";
 import Perfil from "./website/pages/Perfil/Perfil.jsx"
-
+import Dashboard from "./website/pages/Dashboard/Dashboard.jsx";
 
 
 function Rotas() {
@@ -31,6 +31,7 @@ function Rotas() {
                     <Route path="/pedidos" element={<Pedidos />} />
                     <Route path="/ordens" element={<Ordens />} />
                     <Route path="/carrinho" element={<Carrinho />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
             </BrowserRouter>
         </>

@@ -9,7 +9,8 @@ function EmployeeRegister({ setMostrarCadastro }) {
         email: '',
         cpfCnpj: '',
         telefone: '',
-        password: ''
+        password: '',
+        role: '',
     });
 
 

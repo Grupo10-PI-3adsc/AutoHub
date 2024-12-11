@@ -4,10 +4,51 @@ import SideBar from "../../components/SideBar";
 import { Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement } from 'chart.js';
 import Styles from "./Dashboard.module.css";
+import axios from "axios";
+import { useState, useEffect } from 'react';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement);
 
 function Services() {
+
+  const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+
+    // Cálculos dos KPIs
+    const [vendasMesAtual, setVendasMesAtual] = useState(0);
+    const [numeroItensEstoque, setNumeroItensEstoque] = useState(0);
+    const [numeroAtendimentos, setNumeroAtendimentos] = useState(0);
+  
+    const vendasMesAnterior = 4;
+    const custoArmazenagem = 850;
+    const tempoAtendimentoTotal = 287;
+    
+
+  const fetchDados = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/produtos/pedidos/dash`);
+      if (response.status === 200) {
+        const data = response.data;
+
+        setVendasMesAtual(data.qtdCaixaUltimoMes);
+        setNumeroItensEstoque(data.qtdItensEstoque);
+        setNumeroAtendimentos(data.qtdVendasUltimoMes);
+
+      } else {
+        console.error("Erro ao carregar os dados da API");
+      }
+    } catch (error) {
+      console.error("Erro na requisição API", error);
+    }
+  };
+
+  fetchDados()
+
+  const loopFetchDados = () => {
+    fetchDados();
+    setTimeout(loopFetchDados, 120000); // 120000 ms = 2 minutos
+  };
+
+
   // Dados para os gráficos
   const data = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -48,16 +89,12 @@ function Services() {
     plugins: { legend: { position: 'top' } },
   };
 
-  // Cálculos dos KPIs
-  const vendasMesAtual = 19; // Exemplo de valor
-  const vendasMesAnterior = 12; // Exemplo de valor
-  const custoArmazenagem = 1500; // Exemplo de valor
-  const numeroItensEstoque = 200; // Exemplo de valor
-  const tempoAtendimentoTotal = 120; // Exemplo de valor em minutos
-  const numeroAtendimentos = 15; // Exemplo de valor
+
+
+
 
   // KPI de Crescimento de Vendas
-  const crescimentoVendas = ((vendasMesAtual - vendasMesAnterior) / vendasMesAnterior) * 100;
+  const crescimentoVendas = ((numeroAtendimentos - vendasMesAnterior) / vendasMesAnterior) * 100;
 
   // KPI de Custo de Armazenagem
   const custoArmazenagemPorItem = custoArmazenagem / numeroItensEstoque;
@@ -82,7 +119,7 @@ function Services() {
             </div>
             <div className="kpi-card2 kpi-card-large">
               <h3>Total de Caixa do Mês</h3>
-              <p>R$:{vendasMesAtual * 100} </p> {/* Exemplo de caixa baseado nas vendas */}
+              <p>R$:{vendasMesAtual} </p>
             </div>
 
             </div>
@@ -90,7 +127,7 @@ function Services() {
             <div className="kpis-container">
             <div className="kpi-card">
               <h3>Total de Vendas no Mês</h3>
-              <p>{vendasMesAtual}</p>
+              <p>{numeroAtendimentos}</p>
             </div>
             <div className="kpi-card">
               <h3>Custo de Armazenagem</h3>

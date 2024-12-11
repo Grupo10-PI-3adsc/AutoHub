@@ -47,7 +47,7 @@ function EmployeeUpdate({setMostrarUpdate}) {
         console.log(clientData)
         event.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:8080/usuarios/${clientData.id}`, clientData);
+            const response = await axios.put(`${apiUrl}/usuarios/${clientData.id}`, clientData);
             console.log('Funcionário atualizado:', response.data);
             console.log(response)
             setMostrarUpdate(false);

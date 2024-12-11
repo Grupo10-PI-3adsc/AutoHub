@@ -1,6 +1,10 @@
 import ProductHeader from "./ProductHeader";
 import SideBar from "./SideBar";
 import React, { useState, useCallback } from 'react';
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 
 function EmployeeRegister({ setMostrarCadastro }) {
 
@@ -31,6 +35,8 @@ function EmployeeRegister({ setMostrarCadastro }) {
     };
 
     const handleAddEmp = async (event) => {
+        clientData['role'] = selectedOption
+        alert("entrou")
         event.preventDefault();
         console.log('Cadastrando funcionario:', clientData);
         try {
@@ -58,26 +64,18 @@ function EmployeeRegister({ setMostrarCadastro }) {
     return (
         <>
             <div className="modal">
-                <div className="modal-container employee register">
+                <div className="modal-cadastrar-clientes ">
                     <h1>Cadastro de Funcionário</h1>
                     <form onSubmit={handleAddEmp}>
                         <div className="modal-inputs">
-                            <div className="modal-input-field">
-                                <p>Nome</p>
-                                <input type="text" />
-                            </div>
-                            <div className="modal-input-field">
-                                <p>E-mail</p>
-                                <input type="text" />
-                            </div>
-                            <div className="modal-input-field">
-                                <p>CPF</p>
-                                <input type="text" />
-                            </div>
-                            <div className="modal-input-field">
-                                <p>Senha</p>
-                                <input type="text" />
-                            </div>
+                            {['nome', 'email', 'cpfCnpj', 'telefone', 'password'].map((field) => (
+                            <FormField
+                                key={field}
+                                field={field}
+                                value={clientData[field]}
+                                onChange={handleInputChange}
+                                />
+                            ))}
                             <div className="modal-input-field">
                                 <p>Tipo de Acesso</p>
                                 <div className="dropdown">
@@ -87,22 +85,35 @@ function EmployeeRegister({ setMostrarCadastro }) {
                                     </div>
                                     {isOpen && (
                                         <ul className="dropdown-menu">
-                                            <li onClick={() => handleOptionClick("Gerente")}>Gerente</li>
-                                            <li onClick={() => handleOptionClick("Funcionário")}>Funcionário</li>
+                                            <li onClick={() => handleOptionClick("GERENTE")}>Gerente</li>
+                                            <li onClick={() => handleOptionClick("FUNC")}>Funcionário</li>
                                         </ul>
                                     )}
                                 </div>
                             </div>
                         </div>
+                        <div className="modal-buttons">
+                            <button type="button" className="btn-modal cancelar" onClick={handleRemoverCad}>Cancelar</button>
+                            <button type="submit" className="btn-modal cadastrar">Cadastrar</button>
+                        </div>
                     </form>
-                    <div className="modal-buttons">
-                        <button className="btn-modal cancelar" onClick={handleRemoverCad}>Cancelar</button>
-                        <button className="btn-modal cadastrar">Cadastrar</button>
-                    </div>
                 </div>
             </div>
         </>
     )
 }
+
+const FormField = ({ field, value, onChange }) => (
+    <div className="modal-input-field">
+        <p>{field.charAt(0).toUpperCase() + field.slice(1)}</p>
+        <input
+            type={field === 'password' ? 'password' : 'text'}
+            name={field}
+            value={value}
+            onChange={onChange}
+            required
+        />
+    </div>
+);
 
 export default EmployeeRegister;

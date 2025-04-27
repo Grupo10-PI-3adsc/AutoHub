@@ -1,3 +1,8 @@
+import ImagemLocation from "../../../assets/location.png"
+import ImagemWave from "../../../assets/wave.png"
+import ImagemCalendar from "../../../assets/calendar.png"
+import ImagemCarIcon from "../../../assets/car-icon.png"
+
 function Info() {
   return (
     <div className="info">
@@ -11,7 +16,7 @@ function Info() {
       <div className="info-flow">
         <div className="info-step">
           <div className="info-img">
-            <img src="../src/assets/location.png" alt="" />
+            <img src={ImagemLocation} alt="" />
           </div>
 
           <h2>Escolher Serviço</h2>
@@ -21,11 +26,11 @@ function Info() {
           </p>
         </div>
 
-        <img src="../src/assets/wave.png" alt="" />
+        <img src={ImagemWave} alt="" />
 
         <div className="info-step">
           <div className="info-img">
-            <img src="../src/assets/calendar.png" alt="" />
+            <img src={ImagemCalendar} alt="" />
           </div>
 
           <h2>Agendar Data</h2>
@@ -35,11 +40,11 @@ function Info() {
           </p>
         </div>
 
-        <img src="../src/assets/wave.png" alt="" />
+        <img src={ImagemWave} alt="" />
 
         <div className="info-step">
           <div className="info-img">
-            <img src="../src/assets/car-icon.png" alt="" />
+            <img src={ImagemCarIcon} alt="" />
           </div>
 
           <h2>Deixar e Retirar Carro</h2>

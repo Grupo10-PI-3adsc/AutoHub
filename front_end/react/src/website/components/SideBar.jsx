@@ -5,6 +5,7 @@ import { CiBoxes } from "react-icons/ci";
 import { LuCalendarClock } from "react-icons/lu";
 import { PiHandshakeDuotone } from "react-icons/pi";
 import { VscNotebook } from "react-icons/vsc";
+import ImagemLotusIcon from "../../assets/lotus-icon.png"
 
 
 const SideBar = () => {
@@ -12,7 +13,7 @@ const SideBar = () => {
         <>
             <div className="sidebar">
                 <div className="sidebar-logo">
-                    <img src="../src/assets/lotus-icon.png" alt="" />
+                    <img src={ImagemLotusIcon} alt="" />
                 </div>
                 <div className="sidebar-container">
                     <ul>

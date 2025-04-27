@@ -23,6 +23,6 @@ Este é um projeto para o gerenciamento de um autocenter, desenvolvido com foco 
 
 2. **Instalação das Dependências do Frontend No diretório principal do projeto, execute:**
 
-```bash
 Copiar código:
-npm install react react-dom react-router-dom @vitejs/plugin-react vite
+```bash
+npm install react react-dom react-router-dom axios emailjs-com react-icons sweetalert2 @vitejs/plugin-react vite -D

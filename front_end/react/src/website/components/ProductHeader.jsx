@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
+import CarrinhoDeCompras from '../pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx';
+import styles from '../pages/CarrinhoDeCompras/ProductHeader.module.css';
+import { IoIosArrowDown } from "react-icons/io";
+import ImagemPlaceHolder from "../../assets/placeholder.png"
+
 
 function obterDataAtual() {
     const hoje = new Date();
@@ -13,9 +20,18 @@ function obterHoraAtual() {
     return agora.toLocaleTimeString();
 }
 
-function ProductHeader() {
+function ProductHeader({ carrinho, setCarrinho }) {
     const [horaAtual, setHoraAtual] = useState(obterHoraAtual());
     const dataAtual = obterDataAtual();
+    const [mostrarCarrinhoCompleto, setMostrarCarrinhoCompleto] = useState(false);
+    const carrinhoRef = useRef(null);
+    const cartIconRef = useRef(null);
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
 
     useEffect(() => {
         const intervalo = setInterval(() => {
@@ -24,6 +40,29 @@ function ProductHeader() {
         return () => clearInterval(intervalo);
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+
+            if (
+                carrinhoRef.current &&
+                !carrinhoRef.current.contains(event.target) &&
+                cartIconRef.current &&
+                !cartIconRef.current.contains(event.target)
+            ) {
+                setMostrarCarrinhoCompleto(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [carrinhoRef, cartIconRef]);
+
+    const toggleCarrinho = () => {
+        setMostrarCarrinhoCompleto((prevState) => !prevState);
+    };
+
     return (
         <>
             <header className='product-header'>
@@ -31,13 +70,37 @@ function ProductHeader() {
                     <p>{horaAtual}</p>
                     <p>{dataAtual}</p>
                 </div>
-                <div className="product-header-perfil">
-                    <img src="../src/assets/placeholder.png" alt="" />
-                    <p>Super_admin</p>
+                <div className="product-header-perfil" onClick={toggleDropdown}>
+                    <div className="product-header-perfil-header">
+                        <img src={ImagemPlaceHolder} alt="" />
+                        <div className="product-header-perfil-header-text">
+                            <p>Super_admin</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
+                        </div>
+                    </div>
+                    {isOpen && (
+                        <ul className="product-header-perfil-expanded">
+                            <li><div className="product-header-perfil-info">
+                                <h4>Super Admin</h4> <p>superadm@gmail.com</p>
+                            </div></li>
+                            <li>Meu Perfil</li>
+                            <li>Configurações</li>
+                            <li>Notificações</li>
+                            <li>Sair</li>
+                        </ul>
+                    )}
+                    <div className={styles.cartIconContainer}>
+                        <FaShoppingCart ref={cartIconRef} className={styles.cartIcon} onClick={toggleCarrinho} />
+                        {/* <span className={styles.cartCount}>{carrinho.length}</span> */}
+                    </div>
                 </div>
             </header>
+            {mostrarCarrinhoCompleto && (
+                <div ref={carrinhoRef}>
+                    <CarrinhoDeCompras carrinho={carrinho} setCarrinho={setCarrinho} />
+                </div>
+            )}
         </>
-    )
+    );
 }
 
 export default ProductHeader;

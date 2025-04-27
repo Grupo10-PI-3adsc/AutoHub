@@ -4,6 +4,7 @@ import Info from "../Info/Info";
 import Services from "../Services/Services";
 import AboutUs from "../About/About";
 import Contact from "../Contact/Contact";
+import ImagemHome from "../../../assets/home.png"
 
 function Home() {
 
@@ -29,7 +30,7 @@ function Home() {
           </p>
           <a onClick={() => scrollToSection("services")}>Veja os serviços</a>
         </div>
-        <img src="../src/assets/home.png" alt="" />
+        <img src={ImagemHome} alt="" />
       </div>
 
       <div id="info"><Info /></div>

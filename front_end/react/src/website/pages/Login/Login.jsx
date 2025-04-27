@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 import Header from "../../components/Header";
+
 
 function Login() {
     const navigate = useNavigate();
@@ -32,13 +34,42 @@ function Login() {
             });
 
             if (response.ok) {
-                alert("Login realizado com sucesso!");
-                navigate("/");
+                const responseData = await response.json(); 
+                const token = responseData.token; 
+                const userName = responseData.nome;
+
+                if (token) {
+                    localStorage.setItem("token", token);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login realizado com sucesso! ' + userName,
+                        text: 'Seja bem-vindo!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        navigate("/produtos");
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Token não recebido',
+                        text: 'Ocorreu um problema ao realizar o login'
+                    });
+                }
             } else {
-                alert("Falha no login");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Falha no login',
+                    text: 'Credenciais inválidas'
+                });
             }
         } catch (error) {
             console.error("Erro ao enviar dados:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao enviar dados. Tente novamente mais tarde.'
+            });
         }
     }
 

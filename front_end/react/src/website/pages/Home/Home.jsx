@@ -22,7 +22,7 @@ function Home() {
       <Header />
       <div className="home">
         <div className="home-text">
-          <h1>Encontre o melhor autocenter para sua necessidade.</h1>
+          <h1>Conectando você ao seu autocenter favorito!</h1>
           <p>
             De troca de óleos a reparos e customizações, agende e confirme tudo
             no conforto da sua casa.

@@ -1,34 +1,24 @@
-import Login from '../Login/Login.jsx';
-import { Link } from 'react-router-dom';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Header from "../../components/Header";
 
-const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
+const apiUrl = 'http://localhost:8080';
 
 function Cadastrar() {
     const navigate = useNavigate();
-
-   
     
     const [nome, setNome] = useState("");
     const [cpfCnpj, setCpfCnpj] = useState("");
     const [telefone, setTelefone] = useState("");
     const [email, setEmail] = useState("");
     const [password, setSenha] = useState("");
-    // role: "user", cliente será sempre um usuário comum
-
-    // Ajuste para sumir a label do input quando o campo estiver preenchido
+    
     const [showNomeLabel, setShowNomeLabel] = useState(true);
     const [showCpfCnpjLabel, setShowCpfCnpjLabel] = useState(true);
     const [showTelefoneLabel, setShowTelefoneLabel] = useState(true);
     const [showEmailLabel, setShowEmailLabel] = useState(true);
     const [showSenhaLabel, setShowSenhaLabel] = useState(true);
-
-    const getCurrentDate = () => {
-        const today = new Date();
-        return today.toISOString().split('T')[0]; 
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,7 +32,7 @@ function Cadastrar() {
         };
 
         try {
-            const response = await fetch(`http://localhost:8080/auth/register`, {
+            const response = await fetch(`${apiUrl}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -51,14 +41,30 @@ function Cadastrar() {
             });
 
             if (response.ok) {
-                alert("Cadastro realizado com sucesso!");
+                Swal.fire({
+                    icon: "success",
+                    title: "Cadastro realizado com sucesso!",
+                    text: "Agora você pode fazer login! Redirecionando para a página de login...",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
                 navigate("/login");
             } else {
-                alert("Falha no cadastro");
+                Swal.fire({
+                    icon: "error",
+                    title: "Falha no cadastro",
+                    text: "Verifique os dados e tente novamente.",
+                    showConfirmButton: true
+                });
             }
         } catch (error) {
             console.error("Erro ao enviar dados:", error);
-            alert("Erro ao enviar dados");
+            Swal.fire({
+                icon: "error",
+                title: "Erro ao enviar dados",
+                text: "Ocorreu um erro inesperado. Por favor, tente novamente.",
+                showConfirmButton: true
+            });
         }
     };
 
@@ -124,17 +130,17 @@ function Cadastrar() {
                             />
                         </div>
                         <div className="input-container">
-                                {showSenhaLabel && <label htmlFor="Senha">password</label>}
-                                <input 
-                                    type="text" 
-                                    id="senha" 
-                                    value={password} 
-                                    onChange={(e) => setSenha(e.target.value)} 
-                                    onFocus={() => setShowSenhaLabel(false)} 
-                                    onBlur={() => setShowSenhaLabel(!password)} 
-                                    required 
-                                />
-                            </div>
+                            {showSenhaLabel && <label htmlFor="Senha">password</label>}
+                            <input 
+                                type="text" 
+                                id="senha" 
+                                value={password} 
+                                onChange={(e) => setSenha(e.target.value)} 
+                                onFocus={() => setShowSenhaLabel(false)} 
+                                onBlur={() => setShowSenhaLabel(!password)} 
+                                required 
+                            />
+                        </div>
                         <button className="auth-btn" type="submit">Prosseguir</button>
                     </form>
                 </div>

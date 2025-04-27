@@ -1,10 +1,15 @@
 import { useState } from 'react';
+import { TbCar4Wd, TbCarTurbine, TbShoppingCartDollar } from "react-icons/tb";
+import { PiCarBatteryLight, PiTire } from "react-icons/pi";
+import { GiMechanicGarage, GiTireIronCross, GiFuelTank, GiGearStick } from "react-icons/gi";
+import { MdOutlineTireRepair } from "react-icons/md";
+
+
 
 function Services() {
-  // Definir o estado inicial do serviço selecionado
+
   const [activeService, setActiveService] = useState('alinhamento');
 
-  // Manipulador para definir o serviço ativo
   const handleServiceClick = (service) => {
     setActiveService(service);
   };
@@ -22,34 +27,34 @@ function Services() {
 
         <div className="services-buttons">
           <button className={`btn-service ${activeService === 'alinhamento' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('alinhamento')}>placeholder</button>
+            onClick={() => handleServiceClick('alinhamento')}> <a><TbCar4Wd /></a></button>
 
           <button className={`btn-service ${activeService === 'balanceamento' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('balanceamento')}>placeholder</button>
+            onClick={() => handleServiceClick('balanceamento')}> <a><PiTire /></a></button>
 
           <button className={`btn-service ${activeService === 'bateria' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('bateria')}>placeholder</button>
+            onClick={() => handleServiceClick('bateria')}><a><PiCarBatteryLight /></a></button>
 
           <button className={`btn-service ${activeService === 'borracharia' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('borracharia')}>placeholder</button>
+            onClick={() => handleServiceClick('borracharia')}><a><GiGearStick /></a></button>
 
           <button className={`btn-service ${activeService === 'embreagem' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('embreagem')}>placeholder</button>
+            onClick={() => handleServiceClick('embreagem')}><a><GiTireIronCross /></a></button>
 
           <button className={`btn-service ${activeService === 'freios' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('freios')}>placeholder</button>
+            onClick={() => handleServiceClick('freios')}><a><TbCarTurbine /></a></button>
 
           <button className={`btn-service ${activeService === 'injecao' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('injecao')}>placeholder</button>
+            onClick={() => handleServiceClick('injecao')}><a><GiFuelTank /></a></button>
 
           <button className={`btn-service ${activeService === 'mecanica' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('mecanica')}>placeholder</button>
+            onClick={() => handleServiceClick('mecanica')}><a><GiMechanicGarage /></a></button>
 
           <button className={`btn-service ${activeService === 'suspensao' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('suspensao')}>placeholder</button>
+            onClick={() => handleServiceClick('suspensao')}><a><MdOutlineTireRepair /></a></button>
 
           <button className={`btn-service ${activeService === 'venda' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('venda')}>placeholder</button>
+            onClick={() => handleServiceClick('venda')}><a><TbShoppingCartDollar /></a></button>
         </div>
 
         {activeService === 'alinhamento' && (

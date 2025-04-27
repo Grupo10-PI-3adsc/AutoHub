@@ -31,7 +31,7 @@ function Header() {
 
                 <hr />
 
-                <a onClick={() => handleNavigation("/cadastro")}>Cadastre-se</a>
+                <a onClick={() => handleNavigation("/cadastro")}>Cadastrar</a>
                 <a className="login-btn" onClick={() => handleNavigation("/login")}>Login</a>
             </nav>
         </header>

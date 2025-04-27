@@ -1,3 +1,6 @@
+import ImagemInstagram from "../../assets/instagram.png"
+import ImagemFacebook from "../../assets/facebook.png"
+
 function Footer() {
     return (
         <footer className="footer">
@@ -6,8 +9,8 @@ function Footer() {
                     <h1>Sobre nós</h1>
                     <p>Tudo que seu carro merece!</p>
                     <div className="footer-socials">
-                        <img src="../src/assets/instagram.png" alt="" />
-                        <img src="../src/assets/facebook.png" alt="" />
+                        <img src={ImagemInstagram} alt="" />
+                        <img src={ImagemFacebook} alt="" />
                     </div>
                     <p>&copy; {new Date().getFullYear()} LOTUS Centro Automotivo 30.070.385/0001.24.</p>
                 </div>

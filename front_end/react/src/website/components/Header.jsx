@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ImagemLotusIcon from "../../assets/lotus-icon.png"
 
 function Header() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Header() {
 
     return (
         <header className="header">
-            <img src="../src/assets/lotus-icon.png" alt="" onClick={() => handleNavigation("/")} />
+            <img src={ImagemLotusIcon} alt="" onClick={() => handleNavigation("/")} />
             <nav className="nav-bar">
                 <a href="#" onClick={() => scrollToSection("home")}>Principal</a>
                 <a href="#" onClick={() => scrollToSection("services")}>Serviços</a>
@@ -31,7 +32,7 @@ function Header() {
 
                 <hr />
 
-                <a onClick={() => handleNavigation("/cadastro")}>Cadastrar</a>
+                <a onClick={() => handleNavigation("/cadastro")} className='pointer'>Cadastrar</a>
                 <a className="login-btn" onClick={() => handleNavigation("/login")}>Login</a>
             </nav>
         </header>

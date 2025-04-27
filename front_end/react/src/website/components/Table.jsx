@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-const apiUrl = "https://apiautohub.azurewebsites.net";
-
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
 
 const TableClients = () => {
   const [mostrarUpdate, setMostrarUpdate] = useState(false);
@@ -29,7 +29,7 @@ const TableClients = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -114,7 +114,7 @@ const TableEmployees = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -199,7 +199,7 @@ const TableOrders = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -286,7 +286,7 @@ const TableServices = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

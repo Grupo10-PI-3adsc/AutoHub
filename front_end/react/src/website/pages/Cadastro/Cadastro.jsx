@@ -5,7 +5,8 @@ import Header from "../../components/Header";
 import axios from "axios";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-const apiUrl = "https://apiautohub.azurewebsites.net";
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
 
 function Cadastrar() {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ function Cadastrar() {
         const data = { nome, email, password, cpfCnpj, telefone };
 
         try {
-            await axios.post(`${apiUrl}/auth/register`, data);
+            await axios.post(`${apiUrl}/api/auth/register`, data);
             Swal.fire({
                 icon: "success",
                 title: "Cadastro realizado com sucesso!",

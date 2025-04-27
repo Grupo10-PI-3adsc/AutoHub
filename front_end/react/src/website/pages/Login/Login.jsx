@@ -5,10 +5,12 @@ import Header from "../../components/Header";
 import axios from "axios";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-const apiUrl = "https://apiautohub.azurewebsites.net";
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
+
 console.log(import.meta.env);
 console.log(import.meta.env.VITE_CLOUD_API_URL);
-console.log(`${apiUrl}/auth/login`)
+console.log(`${apiUrl}/api/auth/login`)
 
 function Login() {
     const navigate = useNavigate();
@@ -27,7 +29,7 @@ function Login() {
 
         const data = { email, password };
         try {
-            const response = await axios.post(`${apiUrl}/auth/login`, data, {
+            const response = await axios.post(`${apiUrl}/api/auth/login`, data, {
                headers: {
                 "Content-Type": "application/json"
                 }

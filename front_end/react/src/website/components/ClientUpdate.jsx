@@ -2,8 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 
 function ClientUpdate({ setMostrarUpdate }) {
-    const apiUrl = "https://apiautohub.azurewebsites.net";
-    // const apiUrl = process.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
 
     const [formatdata, setFormData] = useState({
         id: '',
@@ -26,7 +27,7 @@ function ClientUpdate({ setMostrarUpdate }) {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.put(`${apiUrl}/clientes/${formData.id}`, formData);
+            const response = await axios.put(`${apiUrl}/api/clientes/${formData.id}`, formData);
             console.log('Cliente atualizado:', response.data);
             setMostrarUpdate(false);
             Swal.fire({

@@ -40,6 +40,8 @@ function Login() {
 
             if (token) {
                 localStorage.setItem("token", token);
+                localStorage.setItem("nome", nome)
+                localStorage.setItem("email", response.data['email'])
                 Swal.fire({
                     icon: 'success',
                     title: `Login realizado com sucesso, ${nome}!`,

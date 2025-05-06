@@ -6,7 +6,9 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import EmployeeUpdate from "./EmployeeUpdate";
 
-const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
 
 const handleDeleteCliente = async (id, dados, setDados) => {
   console.log("id para ser deletado: " + id);
@@ -45,7 +47,6 @@ const handleDeleteCliente = async (id, dados, setDados) => {
 };
 
 
-
 const TableClients = () => {
   const [mostrarUpdate, setMostrarUpdate] = useState(false);
   const [dados, setDados] = useState([]);
@@ -68,7 +69,7 @@ const TableClients = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -156,7 +157,7 @@ const TableEmployees = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -243,7 +244,7 @@ const TableOrders = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -331,7 +332,7 @@ const TableServices = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/usuarios`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

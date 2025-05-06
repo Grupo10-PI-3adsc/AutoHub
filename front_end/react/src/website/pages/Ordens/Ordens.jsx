@@ -8,7 +8,9 @@ import { FaPen, FaSearch } from "react-icons/fa";
 import swal from "sweetalert2";
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
 
 function Ordens() {
     const [mostrarCadastro, setMostrarCadastro] = useState(false);
@@ -20,7 +22,7 @@ function Ordens() {
     // Não deletamos o cliente, apenas inativamos!
     const handleDeletarCliente = useCallback(async (id) => {
         try {
-            const response = await axios.put(`${apiUrl}/inativar/${id}`);
+            const response = await axios.put(`${apiUrl}/api/inativar/${id}`);
 
             if (response.status === 204) {
                 swal.fire('Sucesso', 'Cliente foi inativado com sucesso', 'success');

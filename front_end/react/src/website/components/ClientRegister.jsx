@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from "react";
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
 
 function ClientRegister({ setMostrarCadastro }) {
     const [clientData, setClientData] = useState({
@@ -26,7 +28,7 @@ function ClientRegister({ setMostrarCadastro }) {
         event.preventDefault();
         console.log('Cadastrando cliente:', clientData);
         try {
-            const response = await axios.post(`${apiUrl}/auth/register`, clientData, {
+            const response = await axios.post(`${apiUrl}/api/auth/register`, clientData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

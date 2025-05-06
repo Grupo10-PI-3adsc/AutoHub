@@ -4,16 +4,19 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
+
 const token = localStorage.getItem("token")
-console.log(`${apiUrl}/auth/login`)
+console.log(`${apiUrl}/api/auth/login`)
 console.log(token)
 
 const gerarProdutos = async () => {
 
     try {
 
-        const response = await axios.get(`${apiUrl}/produtos/listar-produtos`, {
+        const response = await axios.get(`${apiUrl}/api/produtos/listar-produtos`, {
            headers: {
             "Content-Type": "application/json",
             'Authorization': 'Bearer ' + token

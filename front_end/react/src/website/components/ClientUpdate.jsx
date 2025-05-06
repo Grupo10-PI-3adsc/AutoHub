@@ -3,7 +3,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function ClientUpdate({ setMostrarUpdate }) {
-    const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+// const apiUrl = "https://apiautohub.azurewebsites.net";
+const apiUrl = "http://52.203.203.23";
 
 
     const [formData, setFormData] = useState({
@@ -28,7 +30,7 @@ function ClientUpdate({ setMostrarUpdate }) {
         console.log(formData)
         event.preventDefault();
         try {
-            const response = await axios.put(`${apiUrl}/usuarios/${formData.id}`, formData);
+            const response = await axios.put(`${apiUrl}/api/clientes/${formData.id}`, formData);
             console.log('Cliente atualizado:', response.data);
             console.log(response)
             setMostrarUpdate(false);

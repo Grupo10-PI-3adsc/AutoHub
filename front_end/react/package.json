@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "test": "vitest",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -15,7 +16,7 @@
     "install": "^0.13.0",
     "npm": "^10.9.1",
     "qrcode": "^1.5.4",
-    "react-qr-code": "^2.0.15"
+    "react-qr-code": "^2.0.15",
     "react-chartjs-2": "^5.2.0"
   },
   "devDependencies": {

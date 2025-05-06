@@ -3,7 +3,7 @@ import axios from "axios";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
 // const apiUrl = "https://apiautohub.azurewebsites.net";
-const apiUrl = "http://52.203.203.23";
+const apiUrl = "http://localhost:8080";
 
 function ClientRegister({ setMostrarCadastro }) {
     const [clientData, setClientData] = useState({
@@ -47,7 +47,7 @@ function ClientRegister({ setMostrarCadastro }) {
 
     return (
         <div className="modal">
-            <div className="modal-container client register">
+            <div className="modal-cadastrar-clientes">
                 <h1>Cadastro de Cliente</h1>
                 <form onSubmit={handleAddClient}>
                     <div className="modal-inputs">

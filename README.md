@@ -25,4 +25,4 @@ Este é um projeto para o gerenciamento de um autocenter, desenvolvido com foco 
 
 Copiar código:
 ```bash
-npm install react react-dom react-router-dom axios emailjs-com react-icons sweetalert2 @vitejs/plugin-react vite -D
+npm install react react-dom react-router-dom axios emailjs-com qrcode.react react-qr-code react-icons sweetalert2 @vitejs/plugin-react vite -D

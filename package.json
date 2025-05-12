@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "install": "^0.13.0",
-    "npm": "^10.9.1"
+    "npm": "^10.9.1",
+    "react-qr-code": "^2.0.15"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

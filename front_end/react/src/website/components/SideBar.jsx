@@ -18,7 +18,7 @@ const SideBar = () => {
                 <div className="sidebar-container">
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="Dashboard">
                                 <IoBarChartOutline className="icon" /> <span className="text">Dashboard</span>
                             </a>
                         </li>

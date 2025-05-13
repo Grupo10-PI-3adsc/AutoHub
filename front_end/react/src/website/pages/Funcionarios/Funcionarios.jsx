@@ -9,8 +9,8 @@ import swal from "sweetalert2";
 import axios from "axios";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "https://apiautohub.azurewebsites.net";
-const apiUrl = "http://localhost:8080";
+// const apiUrl = "http://44.206.70.231";
+const apiUrl = "http://44.206.70.231";
 
 function Funcionarios() {
     const [mostrarCadastro, setMostrarCadastro] = useState(false);

@@ -2,8 +2,8 @@ import React, { useState, useCallback } from "react";
 import axios from "axios";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "https://apiautohub.azurewebsites.net";
-const apiUrl = "http://localhost:8080";
+// const apiUrl = "http://44.206.70.231";/
+const apiUrl = "http://44.206.70.231";
 
 function ClientRegister({ setMostrarCadastro }) {
     const [clientData, setClientData] = useState({

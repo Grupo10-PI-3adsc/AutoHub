@@ -7,8 +7,8 @@ import axios from "axios";
 import EmployeeUpdate from "./EmployeeUpdate";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "https://apiautohub.azurewebsites.net";
-const apiUrl = "http://localhost:8080";
+// const apiUrl = "http://44.206.70.231";
+const apiUrl = "http://44.206.70.231";
 
 const handleDeleteCliente = async (id, dados, setDados) => {
   console.log("id para ser deletado: " + id);

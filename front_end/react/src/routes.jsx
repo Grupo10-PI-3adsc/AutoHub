@@ -14,7 +14,8 @@ import Ordens from "./website/pages/Ordens/Ordens.jsx";
 import Carrinho from "./website/pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx";
 import Perfil from "./website/pages/Perfil/Perfil.jsx";
 import Dashboard from "./website/pages/Dashboard/Dashboard.jsx";
-import CheckoutPage from "./website/pages/Checkout/CheckoutPage.jsx"; // Importe o componente atualizado
+import CheckoutPage from "./website/pages/Checkout/CheckoutPage.jsx";
+import AgendamentoServico from "./website/pages/AgendamentoServico/AgendamentoServico.jsx";
 
 function Rotas() {
   return (
@@ -34,6 +35,7 @@ function Rotas() {
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/finalizar-compra" element={<CheckoutPage />} /> 
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/agendamento-servico" element={<AgendamentoServico />} />
         </Routes>
       </NavigationProvider>
     </BrowserRouter>

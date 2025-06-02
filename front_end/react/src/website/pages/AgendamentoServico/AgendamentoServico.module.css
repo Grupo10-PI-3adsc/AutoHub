@@ -1,0 +1,121 @@
+
+
+.ContainerPagina {
+    background-color: #f0f2f5;
+    display: flex;
+    /* justify-content: center; */
+    gap: 8%;
+    margin-left: 40px;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;;
+}
+
+.AgendadorWrapper {
+    background-color: #333a45;
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1100px;
+    width: 100%;
+}
+
+.CaminhoNavegacao {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    color: #a0a0a0;
+    margin: 0 0 20px 0;
+}
+
+.Titulo {
+    grid-column: 1 / -1;
+    font-size: 36px;
+    margin: 0 0 20px 0;
+    font-weight: bold;
+}
+
+.SecaoFormulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.SecaoInfoServico {
+    padding-left: 20px;
+}
+
+.Rotulo {
+    font-size: 14/px;
+    color: #a0a0a0;
+    margin-bottom: 8px;
+}
+
+.Seletor {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.SeletorDataWrapper {
+    display: flex;
+    width: 90%;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.SeletorDeData {
+    flex: 1;
+    margin-bottom: 0;
+    width: 20px;
+    height: 40px;
+}
+
+.RotuloTotal {
+    font-size: 18px;
+    color: #a0a0a0;
+    margin: 20px 0 5px 0;
+}
+
+.PrecoTotal {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+}
+
+.BotaoPagamento {
+    background-color: #efc64b;
+    color: #333a45;
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.TituloServico {
+    font-size: 33px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+}
+
+.DescricaoServico {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #c9b310;
+    margin-bottom: 30px;
+}
+
+.ChamadaParaAcaoServico {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #FFF;
+}

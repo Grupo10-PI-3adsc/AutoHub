@@ -3,7 +3,6 @@ import { FaShoppingCart } from 'react-icons/fa';
 import CarrinhoDeCompras from '../pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx';
 import styles from '../pages/CarrinhoDeCompras/ProductHeader.module.css';
 import { IoIosArrowDown } from "react-icons/io";
-import ImagemPlaceHolder from "../../assets/placeholder.png";
 
 function obterDataAtual() {
     const hoje = new Date();
@@ -69,7 +68,7 @@ const ProductHeader = ({ carrinho = [], setCarrinho }) => { // Garantir que carr
                 </div>
                 <div className="product-header-perfil" onClick={toggleDropdown}>
                     <div className="product-header-perfil-header">
-                        <img src={ImagemPlaceHolder} alt="" />
+                        <img src="/assets/placeholder.png" alt="" />
                         <div className="product-header-perfil-header-text">
                             <p>{localStorage.getItem('nome')}</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
                         </div>

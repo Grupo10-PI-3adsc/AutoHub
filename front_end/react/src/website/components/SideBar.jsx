@@ -5,7 +5,6 @@ import { CiBoxes } from "react-icons/ci";
 import { LuCalendarClock } from "react-icons/lu";
 import { PiHandshakeDuotone } from "react-icons/pi";
 import { VscNotebook } from "react-icons/vsc";
-import ImagemLotusIcon from "../../assets/lotus-icon.png"
 
 
 const SideBar = () => {
@@ -13,32 +12,32 @@ const SideBar = () => {
         <>
             <div className="sidebar">
                 <div className="sidebar-logo">
-                    <img src={ImagemLotusIcon} alt="" />
+                    <img src="/assets/lotus-icon.png"lt="Lotus Icon" style={{ width: "55px", height: "auto" }} />
                 </div>
                 <div className="sidebar-container">
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="Dashboard">
                                 <IoBarChartOutline className="icon" /> <span className="text">Dashboard</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/produtos">
                                 <CiBoxes className="icon" /> <span className="text">Produtos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/agendamento-servico">
                                 <LuCalendarClock className="icon" /> <span className="text">Agendamentos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/perfil">	
                                 <IoMdPerson className="icon" /> <span className="text">Perfil</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="pedidos">
                                 <PiHandshakeDuotone className="icon" /> <span className="text">Pagamentos</span>
                             </a>
                         </li>

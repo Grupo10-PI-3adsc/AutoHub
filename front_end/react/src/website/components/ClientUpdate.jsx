@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function ClientUpdate({ setMostrarUpdate }) {
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "https://apiautohub.azurewebsites.net";
-const apiUrl = "http://52.203.203.23";
+// const apiUrl = "http://44.206.70.231";
+const apiUrl = "http://44.206.70.231";
 
-    const [formatdata, setFormData] = useState({
+
+    const [formData, setFormData] = useState({
         id: '',
         nome: '',
         email: '',
@@ -25,10 +27,12 @@ const apiUrl = "http://52.203.203.23";
     };
 
     const handleFormSubmit = async (event) => {
+        console.log(formData)
         event.preventDefault();
         try {
             const response = await axios.put(`${apiUrl}/api/clientes/${formData.id}`, formData);
             console.log('Cliente atualizado:', response.data);
+            console.log(response)
             setMostrarUpdate(false);
             Swal.fire({
                 icon: 'success',
@@ -51,8 +55,8 @@ const apiUrl = "http://52.203.203.23";
 
     return (
         <div className="modal2">
-            <div className="modal-container-update client update">
-                <h1>Editar Cliente</h1>
+            <div className="modal-cadastrar-clientes modal-update">
+                <h1>Editar</h1>
                 <form onSubmit={handleFormSubmit}>
                     <div className="modal-inputs">
                         {/* reduzi a criação de campos de input para apenas os campos que serão editados, sem criar
@@ -71,7 +75,7 @@ const apiUrl = "http://52.203.203.23";
                     </div>
                     <div className="modal-buttons-update">
                         <button type="button" className="btn-modal cancelar" onClick={handleCancel}>Cancelar</button>
-                        <button type="submit" className="btn-modal cadastrar">Cadastrar</button>
+                        <button type="submit" className="btn-modal cadastrar">Atualizar</button>
                     </div>
                 </form>
             </div>

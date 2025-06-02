@@ -5,8 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "https://apiautohub.azurewebsites.net";
-const apiUrl = "http://52.203.203.23";
+// const apiUrl = "http://44.206.70.231";
+const apiUrl = "http://44.206.70.231";
 
 const token = localStorage.getItem("token")
 console.log(`${apiUrl}/api/auth/login`)

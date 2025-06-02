@@ -1,0 +1,30 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ prod, dev ]
+  pull_request:
+    branches: [ prod, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: front_end/react/package-lock.json
+
+      - name: Instalar dependências com npm ci
+        run: npm ci
+        working-directory: front_end/react/ 
+
+      - name: Build do projeto React
+        run: npm run build --if-present
+        working-directory: front_end/react/

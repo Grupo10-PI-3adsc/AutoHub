@@ -31,3 +31,4 @@ jobs:
           tags: |
             matteusnogueira/autohub-front:latest
             ${{ github.event_name == 'push' && (github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/dev') && format('matteusnogueira/autohub-front:{0}', github.sha_short) || '' }}
+            

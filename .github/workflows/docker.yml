@@ -30,5 +30,5 @@ jobs:
           load: ${{ github.event_name == 'pull_request' }}
           tags: |
             matteusnogueira/autohub-front:latest
-            ${{ github.event_name == 'push' && (github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/dev') && format('matteusnogueira/autohub-front:{0}', github.sha_short) || '' }}
-            
+            # Adiciona a tag SHA apenas se github.sha_short não for vazio
+            ${{ github.sha_short != '' && format('matteusnogueira/autohub-front:{0}', github.sha_short) || '' }}

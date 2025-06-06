@@ -2,9 +2,9 @@ name: Docker Push
 
 on:
   push:
-    branches: [ prod, dev ] # Adicionei 'dev' aqui, se aplicável
+    branches: [ prod ] 
   pull_request:
-    branches: [ prod, dev ] # Adicionei 'dev' aqui, se aplicável
+    branches: [ prod ]
 
 jobs:
   build_and_push:

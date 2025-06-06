@@ -7,28 +7,29 @@ on:
     branches: [ prod, dev ] # Adicionei 'dev' aqui, se aplicável
 
 jobs:
-  build_and_push:
+  build_and_test: # Renomeado para refletir que pode haver testes aqui
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        if: github.event_name == 'push' || github.event_name == 'pull_request' 
+      - name: Log in to Docker Hub (only on push)
+        # Este passo só roda se o evento for um push para prod ou dev
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/dev')
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         uses: docker/build-push-action@v6.18.0
         with:
           context: front_end/react/
-          # 'push: true' apenas para eventos de push para as branches prod/dev
+          # 'load: true' é útil para carregar a imagem no runner e rodar testes nela
+          # ou apenas para verificar se o build passa sem pushar para o registry
+          load: ${{ github.event_name == 'pull_request' }} # Carrega a imagem no runner APENAS em PRs
+          # 'push: true' APENAS se for um push para prod ou dev
           push: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/dev') }}
-          # 'load: true' é útil para PRs para carregar a imagem localmente e rodar testes
-          load: ${{ github.event_name == 'pull_request' }}
           tags: |
             matteusnogueira/autohub-front:latest
-            # Adiciona a tag SHA apenas se github.sha_short não for vazio
             ${{ github.sha_short != '' && format('matteusnogueira/autohub-front:{0}', github.sha_short) || '' }}

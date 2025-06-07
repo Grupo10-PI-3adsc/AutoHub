@@ -1,0 +1,38 @@
+name: Docker Push
+
+on:
+  push:
+    branches: [ prod ] 
+  pull_request:
+    branches: [ prod, dev]
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: SHA dinamico tag part
+        id: set_sha_tag 
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          echo "sha_part=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+          echo "Generated SHA Part: ${SHORT_SHA}"
+
+      - name: Log in to Docker Hub (only on push)
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/dev')
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: front_end/react/
+          load: ${{ github.event_name == 'pull_request' }}
+          push: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/dev') }}
+          tags: |
+            matteusnogueira/autohub-front:latest
+            matteusnogueira/autohub-front:${{ steps.set_sha_tag.outputs.sha_part }}

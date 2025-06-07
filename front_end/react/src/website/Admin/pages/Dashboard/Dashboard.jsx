@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductHeader from "../../components/ProductHeader";
-import SideBar from "../../components/SideBar";
+import ProductHeader from "../../../components/ProductHeader";
+import SideBar from "../../components/SideBarAdm";
 import { Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement } from 'chart.js';
 import Styles from "./Dashboard.module.css";

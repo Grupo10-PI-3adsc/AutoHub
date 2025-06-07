@@ -13,7 +13,7 @@ import Pedidos from "./website/pages/Pedidos/Pedidos.jsx";
 import Ordens from "./website/pages/Ordens/Ordens.jsx";
 import Carrinho from "./website/pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx";
 import Perfil from "./website/pages/Perfil/Perfil.jsx";
-import Dashboard from "./website/pages/Dashboard/Dashboard.jsx";
+import Dashboard from "./website/Admin/Pages/Dashboard/Dashboard.jsx";
 import CheckoutPage from "./website/pages/Checkout/CheckoutPage.jsx";
 import AgendamentoServico from "./website/pages/AgendamentoServico/AgendamentoServico.jsx";
 

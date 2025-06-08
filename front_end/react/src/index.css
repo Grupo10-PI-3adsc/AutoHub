@@ -50,7 +50,7 @@
 
 .login-btn {
   padding: 10px 25px 10px 25px;
-
+  color: #1d1d20 !important;
   background-color: #e8c547;
   border: none;
   border-radius: 5px;
@@ -1315,7 +1315,7 @@ footer .footer-navigation p:hover {
   display: flex;
   align-items: center;
   background-color: #D9D9D9;
-  padding: 4px;
+  padding: 10px;
   border-radius: 10px;
 }
 
@@ -1464,17 +1464,31 @@ footer .footer-navigation p:hover {
   font-weight: 300;
 }
 
+.perfil-salvar-editar{
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;  
+}
+
 .perfil-salvar {
   margin-top: 100px;
-
-  width: 12%;
-  height: 40px;
-
+  cursor: pointer;
+  width: 15%;
+  height: 45px;
+  font-weight: 600;
   background-color: #2489FF;
   border-radius: 10px;
   border: none;
   color: #FFF9FB;
 }
+
+.perfil-salvar[disabled] {
+    cursor: not-allowed; 
+    background-color: #88BEEF; 
+    opacity: 0.9; 
+}
+
+
 
 /* Dashboard */
 .kpi-card2 {

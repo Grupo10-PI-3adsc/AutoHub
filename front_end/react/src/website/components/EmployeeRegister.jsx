@@ -4,7 +4,7 @@ import React, { useState, useCallback } from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function EmployeeRegister({ setMostrarCadastro }) {
 

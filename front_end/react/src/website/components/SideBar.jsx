@@ -6,10 +6,17 @@ import { LuCalendarClock } from "react-icons/lu";
 import { PiHandshakeDuotone } from "react-icons/pi";
 import { BiLogOut } from "react-icons/bi";
 import { MdListAlt } from 'react-icons/md';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const SideBar = () => {
+    const navigate = useNavigate();
+    const Logout = (event) => {
+        event.preventDefault();
+        sessionStorage.clear();
+        localStorage.clear();
+        navigate('/'); 
+    };
     return (
         <>
             <div className="sidebar">
@@ -44,7 +51,7 @@ const SideBar = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="/loggout">
+                            <a href="/" onClick={Logout}>
                                 <BiLogOut className="icon" /> <span className="text">Sair</span>
                             </a>
                         </li>

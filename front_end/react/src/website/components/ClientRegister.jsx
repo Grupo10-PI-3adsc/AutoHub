@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from "react";
 import axios from "axios";
 
-// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "http://44.206.70.231";/
-const apiUrl = "http://44.206.70.231";
+// const apiUrl = "http://54.147.227.169";/
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function ClientRegister({ setMostrarCadastro }) {
     const [clientData, setClientData] = useState({

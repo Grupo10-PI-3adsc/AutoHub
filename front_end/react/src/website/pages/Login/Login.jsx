@@ -24,8 +24,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const data = { email, password };
+const data = { email, password };
         try {
             const response = await axios.post(`${apiUrl}/api/auth/login`, data, {
                headers: {
@@ -35,7 +34,9 @@ function Login() {
 
             console.log(response)
             const { token, nome, email, cpfCnpj, telefone, id, role } = response.data;
-            const {cep, bairro, localidade, uf, idEndreco} = response.data.endereco
+
+            // Check if 'endereco' exists in the response data
+            const endereco = response.data.endereco;
 
             if (token) {
                 localStorage.setItem("token", token);
@@ -45,11 +46,21 @@ function Login() {
                 localStorage.setItem("cpfCnpj", cpfCnpj);
                 localStorage.setItem("role", role);
                 localStorage.setItem("telefone", telefone);
-                localStorage.setItem("idEndreco", idEndreco);
-                localStorage.setItem("cep", cep);
-                localStorage.setItem("bairro", bairro);
-                localStorage.setItem("localidade", localidade);
-                localStorage.setItem("uf", uf);
+
+                if (endereco) {
+                    localStorage.setItem("idEndereco", endereco.id);
+                    localStorage.setItem("cep", endereco.cep);
+                    localStorage.setItem("bairro", endereco.bairro);
+                    localStorage.setItem("localidade", endereco.localidade);
+                    localStorage.setItem("uf", endereco.uf);
+                } else {
+                    localStorage.setItem("idEndereco", 0);
+                    localStorage.setItem("cep", "");
+                    localStorage.setItem("bairro", "");
+                    localStorage.setItem("localidade", "");
+                    localStorage.setItem("uf", "");
+                }
+
                 Swal.fire({
                     icon: 'success',
                     title: `Login realizado com sucesso, ${nome}!`,

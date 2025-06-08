@@ -3,9 +3,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function ClientUpdate({ setMostrarUpdate }) {
-// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "http://44.206.70.231";
-const apiUrl = "http://44.206.70.231";
+// const apiUrl = "http://54.147.227.169";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
     const [formData, setFormData] = useState({

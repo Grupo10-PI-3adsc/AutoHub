@@ -11,7 +11,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 
 function Services() {
 
-  const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
     // Cálculos dos KPIs
     const [vendasMesAtual, setVendasMesAtual] = useState(0);

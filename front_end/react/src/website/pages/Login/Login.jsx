@@ -4,12 +4,10 @@ import Swal from 'sweetalert2';
 import Header from "../../components/Header";
 import axios from "axios";
 
-// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "http://44.206.70.231";
-const apiUrl = "http://44.206.70.231";
+// const apiUrl = "http://54.147.227.169";
+const apiUrl = import.meta.env.VITE_API_URL;
 
-console.log(import.meta.env);
-console.log(import.meta.env.VITE_CLOUD_API_URL);
+console.log(import.meta.env.API_URL);
 console.log(`${apiUrl}/api/auth/login`)
 
 function Login() {
@@ -35,13 +33,23 @@ function Login() {
                 }
                 });
 
-
-            const { token, nome } = response.data;
+            console.log(response)
+            const { token, nome, email, cpfCnpj, telefone, id, role } = response.data;
+            const {cep, bairro, localidade, uf, idEndreco} = response.data.endereco
 
             if (token) {
                 localStorage.setItem("token", token);
-                localStorage.setItem("nome", nome)
-                localStorage.setItem("email", response.data['email'])
+                localStorage.setItem("nome", nome);
+                localStorage.setItem("id", id);
+                localStorage.setItem("email", email);
+                localStorage.setItem("cpfCnpj", cpfCnpj);
+                localStorage.setItem("role", role);
+                localStorage.setItem("telefone", telefone);
+                localStorage.setItem("idEndreco", idEndreco);
+                localStorage.setItem("cep", cep);
+                localStorage.setItem("bairro", bairro);
+                localStorage.setItem("localidade", localidade);
+                localStorage.setItem("uf", uf);
                 Swal.fire({
                     icon: 'success',
                     title: `Login realizado com sucesso, ${nome}!`,

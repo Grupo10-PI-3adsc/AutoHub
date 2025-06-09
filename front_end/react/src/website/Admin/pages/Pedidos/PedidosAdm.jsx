@@ -38,7 +38,7 @@ function PedidosAdm() {
             <ProductHeader />
             <div className="clients">
                 <SideBar />
-                
+
                 <div className="clients-container">
                     <div className="title-clients">
                         <h1>Pedidos</h1>
@@ -55,6 +55,7 @@ function PedidosAdm() {
                     <div className="table-container">
                         <TableOrders />
                     </div>
+                    
                 </div>
             </div>
         </>

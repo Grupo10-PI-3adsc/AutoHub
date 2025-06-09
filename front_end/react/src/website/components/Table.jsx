@@ -280,7 +280,7 @@ const TableOrders = () => {
           <div className="table-column">Produtos</div>
           <div className="table-column">Valor Total</div>
           <div className="table-column">Status</div>
-          <div className="table-actions-header"></div>
+          {/* <div className="table-actions-header"></div> */}
         </div>
 
         {dados.length > 0 ? (
@@ -292,11 +292,10 @@ const TableOrders = () => {
               <div className="table-column">{tupla.cpfCnpj || "Produtos não disponível"}</div>
               <div className="table-column">{`R$${tupla.total}`  || "Valor Total não disponível"}</div>
               <div className="table-column">{tupla.status || "Status não disponível"}</div>
-              <div className="table-actions">
+              {/* <div className="table-actions">
                 <FaTrash onClick={() => handleDeleteCliente(tupla.id)} />
                 <FaPencilAlt onClick={handleUpdateCliente} />
-                {/* <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} /> */}
-              </div>
+              </div> */}
             </div>
             
           ))

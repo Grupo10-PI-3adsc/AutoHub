@@ -79,15 +79,19 @@ function RegistrarPedido({ setMostrarFormulario }) {
 
         const pedidoRequisicao = {
             carrinho: carrinhoDeIds,
-            intalacao: instalacao
+            intalacao: instalacao,
+            observacoes: observacoes
         };
 
         try {
-            await axios.post(`${apiUrl}/api/pedidos/${clienteId}`, pedidoRequisicao, {
+            await axios.post(`${apiUrl}/api/produtos/pedidos/${clienteId}`, pedidoRequisicao, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
             Swal.fire('Sucesso!', 'Pedido registrado com sucesso!', 'success');
             setMostrarFormulario(false);
+            setTimeout(() => {
+                window.location.reload();
+            }, 2500);
         } catch (error) {
             console.error("Erro ao registrar pedido:", error);
             Swal.fire('Erro!', 'Não foi possível registrar o pedido.', 'error');
@@ -96,31 +100,8 @@ function RegistrarPedido({ setMostrarFormulario }) {
 
     const handleFecharModal = () => setMostrarFormulario(false);
     
-    // ESTILOS AJUSTADOS
-    const overlayStyles = { 
-        position: 'fixed', 
-        top: 0, 
-        left: 0, 
-        width: '100vw', 
-        height: '100vh', 
-        backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        zIndex: 1000 
-    };
-    
-    const contentStyles = { 
-        backgroundColor: '#2c2f33', 
-        color: '#FFFFFF',
-        padding: '30px', 
-        borderRadius: '12px', 
-        width: '90%', 
-        maxWidth: '800px', 
-        maxHeight: '90vh', 
-        overflowY: 'auto',
-        boxShadow: '0 5px 20px rgba(0,0,0,0.25)'
-    };
+    const overlayStyles = { position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0, 0, 0, 0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 };
+    const contentStyles = { backgroundColor: '#2c2f33', color: '#FFFFFF', padding: '30px', borderRadius: '12px', width: '90%', maxWidth: '800px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 5px 20px rgba(0,0,0,0.25)'};
 
     return (
         <div style={overlayStyles}>

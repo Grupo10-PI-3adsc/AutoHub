@@ -1,42 +1,47 @@
-import { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function UpdateCliente({ setMostrarUpdate }) {
 const apiUrl = import.meta.env.VITE_API_URL;
 
+function UpdateCliente({ client, setMostrarUpdate, onClientUpdated }) {
+    
+    const [formData, setFormData] = useState({});
 
-    const [formData, setFormData] = useState({
-        id: '',
-        nome: '',
-        email: '',
-        cpfCnpj: '',
-        role: '',
-        telefone: '',
-        enderecoId: ''
-    });
+    useEffect(() => {
+        if (client) {
+            setFormData({
+                id: client.id || '',
+                nome: client.nome || '',
+                email: client.email || '',
+                cpfCnpj: client.cpfCnpj || '',
+                telefone: client.telefone || '',
+            });
+        }
+    }, [client]);
 
-    const handleFormEdit = (event, field) => {
-        const { value } = event.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [field]: value,
+    const handleInputChange = useCallback((event) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
         }));
-    };
+    }, []);
 
     const handleFormSubmit = async (event) => {
-        console.log(formData)
         event.preventDefault();
         try {
-            const response = await axios.put(`${apiUrl}/api/clientes/${formData.id}`, formData);
-            console.log('Cliente atualizado:', response.data);
-            console.log(response)
-            setMostrarUpdate(false);
+            const response = await axios.put(`${apiUrl}/api/usuarios/${formData.id}`, formData, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            });
+
             Swal.fire({
                 icon: 'success',
                 title: 'Sucesso',
                 text: 'O Cliente foi atualizado com sucesso!',
             });
+            onClientUpdated(response.data);
+
         } catch (err) {
             console.error('Erro ao atualizar cliente:', err);
             Swal.fire({
@@ -48,28 +53,20 @@ const apiUrl = import.meta.env.VITE_API_URL;
     };
 
     const handleCancel = () => {
-        setMostrarUpdate(false);  
+        setMostrarUpdate(false);
     };
 
     return (
         <div className="modal2">
             <div className="modal-cadastrar-clientes modal-update">
-                <h1>Editar</h1>
+                <h1>Editar Cliente</h1>
                 <form onSubmit={handleFormSubmit}>
                     <div className="modal-inputs">
-                        {/* reduzi a criação de campos de input para apenas os campos que serão editados, sem criar
-                        inumeros campos de input para cada campo do cliente */}
-                        {['id', 'nome', 'email', 'cpfCnpj', 'role', 'telefone', 'enderecoId'].map((field) => (
-                            <div className="modal-input-field" key={field}>
-                                <p>{field.charAt(0).toUpperCase() + field.slice(1)}</p>
-                                <input
-                                    type="text"
-                                    required
-                                    value={formData[field]}
-                                    onChange={(e) => handleFormEdit(e, field)}
-                                />
-                            </div>
-                        ))}
+                        <FormField field="id" value={formData.id || ''} readOnly={true} />
+                        <FormField field="nome" value={formData.nome || ''} onChange={handleInputChange} />
+                        <FormField field="email" value={formData.email || ''} onChange={handleInputChange} />
+                        <FormField field="cpfCnpj" value={formData.cpfCnpj || ''} onChange={handleInputChange} />
+                        <FormField field="telefone" value={formData.telefone || ''} onChange={handleInputChange} />
                     </div>
                     <div className="modal-buttons-update">
                         <button type="button" className="btn-modal cancelar" onClick={handleCancel}>Cancelar</button>
@@ -81,5 +78,26 @@ const apiUrl = import.meta.env.VITE_API_URL;
     );
 }
 
-export default UpdateCliente;
+const FormField = ({ field, value, onChange, readOnly = false }) => {
+    const formatFieldName = (fieldName) => {
+        if (fieldName === 'cpfCnpj') return 'CPF/CNPJ';
+        return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+    };
 
+    return (
+        <div className="modal-input-field">
+            <p>{formatFieldName(field)}</p>
+            <input
+                type={field === 'email' ? 'email' : 'text'}
+                name={field}
+                value={value}
+                onChange={onChange}
+                required
+                readOnly={readOnly}
+                disabled={readOnly}
+            />
+        </div>
+    );
+};
+
+export default UpdateCliente;

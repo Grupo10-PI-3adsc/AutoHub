@@ -2,8 +2,7 @@ import React, { useState, useCallback } from "react";
 import axios from "axios";
 
 
-const apiUrl = "http://44.206.70.231";
-
+const apiUrl = import.meta.env.VITE_API_URL;
 function ClientRegister({ setMostrarCadastro }) {
     const [clientData, setClientData] = useState({
         nome: '',
@@ -22,7 +21,7 @@ function ClientRegister({ setMostrarCadastro }) {
         }));
     }, []);
 
-    // Função para adicionar um novo cliente
+
     const handleAddClient = async (event) => {
         event.preventDefault();
         console.log('Cadastrando cliente:', clientData);

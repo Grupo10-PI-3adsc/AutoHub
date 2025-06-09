@@ -1,21 +1,8 @@
 import React, { useState } from 'react';
-import axios from "axios";
 import Swal from "sweetalert2";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
-const gridContainerStyle = {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '0 1rem',
-};
-
-const fullWidthStyle = {
-    gridColumn: 'span 2',
-};
-
 // O NOME DO COMPONENTE PRECISA SER O MESMO DO NOME DO ARQUIVO POR CONVENÇÃO
-function AdicionarAgendamento({ setMostrarCadastro }) { // <-- CORREÇÃO 1: A PROPRIEDADE ESPERADA AGORA É setMostrarCadastro
+function AdicionarAgendamento({ setMostrarCadastro }) {
     const today = new Date().toISOString().split('T')[0];
 
     const [agendamentoData, setAgendamentoData] = useState({
@@ -39,11 +26,8 @@ function AdicionarAgendamento({ setMostrarCadastro }) { // <-- CORREÇÃO 1: A P
     };
     
     const handleFecharModal = () => {
-        // <-- CORREÇÃO 2: A VARIÁVEL USADA AGORA É setMostrarCadastro
         if (typeof setMostrarCadastro === 'function') {
             setMostrarCadastro(false);
-        } else {
-            console.error("A função para fechar o modal não foi fornecida!");
         }
     };
     
@@ -53,14 +37,39 @@ function AdicionarAgendamento({ setMostrarCadastro }) { // <-- CORREÇÃO 1: A P
             Swal.fire('Atenção!', 'Por favor, selecione um tipo de serviço.', 'warning');
             return;
         }
+
         const finalAgendamentoData = { ...agendamentoData, tipoServico: selectedServico };
-        try {
-            await axios.post(`${apiUrl}/agendamentos`, finalAgendamentoData);
-            Swal.fire('Sucesso!', 'Serviço agendado com sucesso!', 'success');
-            handleFecharModal(); // Chama a função de fechar após o sucesso
-        } catch (error) {
-            Swal.fire('Erro!', 'Não foi possível completar o agendamento.', 'error');
-        }
+        console.log("Dados do agendamento para apresentação:", finalAgendamentoData);
+
+        // --- SIMULAÇÃO DE ENVIO ---
+        Swal.fire({
+            title: 'Registrando Agendamento...',
+            text: 'Aguarde um momento.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // Simula um atraso de rede de 1.5 segundos
+        setTimeout(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucesso!',
+                text: 'Serviço agendado com sucesso! (Modo Apresentação)',
+            });
+            handleFecharModal(); // Fecha o modal após o sucesso
+        }, 1500);
+    };
+
+    const gridContainerStyle = {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '0 1rem',
+    };
+    
+    const fullWidthStyle = {
+        gridColumn: 'span 2',
     };
 
     return (
@@ -105,6 +114,9 @@ function AdicionarAgendamento({ setMostrarCadastro }) { // <-- CORREÇÃO 1: A P
                                         <ul className="dropdown-menu">
                                             <li onClick={() => handleServicoClick("Troca de Óleo e Filtro")}>Troca de Óleo e Filtro</li>
                                             <li onClick={() => handleServicoClick("Alinhamento e Balanceamento")}>Alinhamento e Balanceamento</li>
+                                            <li onClick={() => handleServicoClick("Revisão Completa")}>Revisão Completa</li>
+                                            <li onClick={() => handleServicoClick("Troca de Pneus")}>Troca de Pneus</li>
+                                            <li onClick={() => handleServicoClick("Sistema de Freios")}>Sistema de Freios</li>
                                         </ul>
                                     )}
                                 </div>

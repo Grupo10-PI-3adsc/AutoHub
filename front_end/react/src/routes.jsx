@@ -22,6 +22,7 @@ import Usuarios from "./website/Admin/pages/UsuariosFuncionarios/Usuarios.jsx";
 import ProdutosAdm from "./website/Admin/pages/Produtos/ProdutosAdm.jsx";
 import PedidosAdm from "./website/Admin/pages/Pedidos/PedidosAdm.jsx";
 import AgendamentosAdm from "./website/Admin/pages/Agendamentos/AgendamentosAdm.jsx";
+import PainelDeKpis from "./website/Admin/pages/Dashboard/PainelDeKpis.jsx";
 
 function Rotas() {
   return (
@@ -44,6 +45,7 @@ function Rotas() {
 
           {/* Rotas do Admin */}
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/painel-de-kpis" element={<PainelDeKpis />} />
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/produtosAdm" element={<ProdutosAdm />} />
           <Route path="/pedidosAdm" element={<PedidosAdm />} />

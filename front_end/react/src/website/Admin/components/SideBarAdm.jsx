@@ -31,6 +31,11 @@ const SideBarAdm = () => {
                             </a>
                         </li>
                         <li>
+                            <a href="/painel-de-kpis">
+                                <MdListAlt className="icon" /> <span className="text">Painel de KPIs</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="/produtosAdm">
                                 <CiBoxes className="icon" /> <span className="text">Produtos</span>
                             </a>

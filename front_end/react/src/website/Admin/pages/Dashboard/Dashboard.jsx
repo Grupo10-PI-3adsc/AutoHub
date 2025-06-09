@@ -93,7 +93,7 @@ function Services() {
 
 
 
-  // KPI de Crescimento de Vendas
+  // KPI de Crescimento de Vendas1
   const crescimentoVendas = ((numeroAtendimentos - vendasMesAnterior) / vendasMesAnterior) * 100;
 
   // KPI de Custo de Armazenagem

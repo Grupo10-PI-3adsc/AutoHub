@@ -286,52 +286,52 @@
 }
 
 .service.alinhamento {
-  background-image: url(./assets/alinhamento.jpg);
+  background-image: url(/assets/alinhamento.jpg);
   background-size: cover;
 }
 
 .service.balanceamento {
-  background-image: url(./assets/balanceamento.png);
+  background-image: url(/assets/balanceamento.png);
   background-size: cover;
 }
 
 .service.bateria {
-  background-image: url(./assets/bateria.jpg);
+  background-image: url(/assets/bateria.jpg);
   background-size: cover;
 }
 
 .service.borracharia {
-  background-image: url(./assets/borracharia.jpg);
+  background-image: url(/assets/borracharia.jpg);
   background-size: cover;
 }
 
 .service.embreagem {
-  background-image: url(./assets/embreagem.jpg);
+  background-image: url(/assets/embreagem.jpg);
   background-size: cover;
 }
 
 .service.freios {
-  background-image: url(./assets/freios.png);
+  background-image: url(/assets/freios.png);
   background-size: cover;
 }
 
 .service.injecao {
-  background-image: url(./assets/injecao.png);
+  background-image: url(/assets/injecao.png);
   background-size: cover;
 }
 
 .service.mecanica {
-  background-image: url(./assets/mecanica.png);
+  background-image: url(/assets/mecanica.png);
   background-size: cover;
 }
 
 .service.suspensao {
-  background-image: url(./assets/suspensao.jpg);
+  background-image: url(/assets/suspensao.jpg);
   background-size: cover;
 }
 
 .service.venda {
-  background-image: url(./assets/vendas.jpg);
+  background-image: url(/assets/vendas.jpg);
   background-size: cover;
 }
 

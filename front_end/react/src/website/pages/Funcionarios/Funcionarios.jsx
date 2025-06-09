@@ -8,9 +8,8 @@ import { FaPen, FaSearch } from "react-icons/fa";
 import swal from "sweetalert2";
 import axios from "axios";
 
-// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "http://44.206.70.231";
-const apiUrl = "http://44.206.70.231";
+// const apiUrl = "http://54.147.227.169";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Funcionarios() {
     const [mostrarCadastro, setMostrarCadastro] = useState(false);

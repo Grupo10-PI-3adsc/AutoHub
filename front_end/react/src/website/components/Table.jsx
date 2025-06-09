@@ -6,9 +6,8 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import EmployeeUpdate from "./EmployeeUpdate";
 
-// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "http://44.206.70.231";
-const apiUrl = "http://44.206.70.231";
+// const apiUrl = "http://54.147.227.169";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const handleDeleteCliente = async (id, dados, setDados) => {
   console.log("id para ser deletado: " + id);
@@ -244,7 +243,7 @@ const TableOrders = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/usuarios`, {
+        const response = await axios.get(`${apiUrl}/api/produtos/pedidos/usuario/${localStorage.getItem('id')}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -277,29 +276,26 @@ const TableOrders = () => {
         <div className="table-header">
           <div className="table-column">#</div>
           <div className="table-column">Cliente</div>
-          <div className="table-column">Tipo</div>
           <div className="table-column">Data</div>
-          <div className="table-column">Pagamento</div>
           <div className="table-column">Produtos</div>
           <div className="table-column">Valor Total</div>
           <div className="table-column">Status</div>
-          <div className="table-actions-header"></div>
+          {/* <div className="table-actions-header"></div> */}
         </div>
 
         {dados.length > 0 ? (
           dados.map((tupla, index) => (
             <div key={index} className="table-row">
               <div className="table-column">{tupla.id || "id não disponível"}</div>
-              <div className="table-column">{tupla.nome || "Nome não disponível"}</div>
-              <div className="table-column">{tupla.email || "Email não disponível"}</div>
-              <div className="table-column">{tupla.cpfCnpj || "CPF/CNPJ não disponível"}</div>
-              <div className="table-column">{tupla.role || "Papel não disponível"}</div>
-              <div className="table-column">{tupla.telefone || "Contato não disponível"}</div>
-              <div className="table-actions">
+              <div className="table-column">{tupla.fkUsuario.nome || "Nome não disponível"}</div>
+              <div className="table-column">{tupla.dataPedido || "Data não disponível"}</div>
+              <div className="table-column">{tupla.cpfCnpj || "Produtos não disponível"}</div>
+              <div className="table-column">{`R$${tupla.total}`  || "Valor Total não disponível"}</div>
+              <div className="table-column">{tupla.status || "Status não disponível"}</div>
+              {/* <div className="table-actions">
                 <FaTrash onClick={() => handleDeleteCliente(tupla.id)} />
                 <FaPencilAlt onClick={handleUpdateCliente} />
-                {/* <FaPencilAlt onClick={() => handleUpdateCliente(tupla)} /> */}
-              </div>
+              </div> */}
             </div>
             
           ))

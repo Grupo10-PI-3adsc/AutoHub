@@ -4,7 +4,7 @@ import { IoMdPerson } from "react-icons/io";
 import { CiBoxes } from "react-icons/ci";
 import { LuCalendarClock } from "react-icons/lu";
 import { PiHandshakeDuotone } from "react-icons/pi";
-import { BiLogOut } from "react-icons/bi";
+import { BiLogOut } from 'react-icons/bi';
 import { MdListAlt } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,33 +21,33 @@ const SideBar = () => {
         <>
             <div className="sidebar">
                 <div className="sidebar-logo">
-                    <img src="/assets/lotus-icon.png" alt="Lotus Icon" style={{ width: "55px", height: "auto" }} />
+                    <img src="/assets/lotus-icon.png"lt="Lotus Icon" style={{ width: "55px", height: "auto" }} />
                 </div>
                 <div className="sidebar-container">
                     <ul>
                         <li>
-                            <a href="/produtos">
+                            <a href="Dashboard">
+                                <IoBarChartOutline className="icon" /> <span className="text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/produtosAdm">
                                 <CiBoxes className="icon" /> <span className="text">Produtos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/agendamento-servico">
+                            <a href="/agendamento-servicoAdm">
                                 <LuCalendarClock className="icon" /> <span className="text">Agendamentos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/pagamentos">
+                            <a href="/usersAdm">	
+                                <IoMdPerson className="icon" /> <span className="text">Usuarios</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pedidosAdm">
                                 <PiHandshakeDuotone className="icon" /> <span className="text">Pagamentos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/pedidos">
-                                <MdListAlt className="icon" /> <span className="text">Pedidos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/perfil">	
-                                <IoMdPerson className="icon" /> <span className="text">Perfil</span>
                             </a>
                         </li>
                         <li>

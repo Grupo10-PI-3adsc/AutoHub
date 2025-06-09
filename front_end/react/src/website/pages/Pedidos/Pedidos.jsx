@@ -8,9 +8,7 @@ import { FaPen, FaSearch } from "react-icons/fa";
 import swal from "sweetalert2";
 import axios from "axios";
 
-// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "http://44.206.70.231";
-const apiUrl = "http://44.206.70.231";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Pedidos() {
     const [mostrarCadastro, setMostrarCadastro] = useState(false);
@@ -19,20 +17,20 @@ function Pedidos() {
         setMostrarCadastro((prevState) => !prevState);
     }, []);
 
-    // Não deletamos o cliente, apenas inativamos!
-    const handleDeletarCliente = useCallback(async (id) => {
-        try {
-            const response = await axios.put(`${apiUrl}/api/inativar/${id}`);
+    // // Não deletamos o cliente, apenas inativamos!
+    // const handleDeletarCliente = useCallback(async (id) => {
+    //     try {
+    //         const response = await axios.put(`${apiUrl}/api/inativar/${id}`);
 
-            if (response.status === 204) {
-                swal.fire('Sucesso', 'Cliente foi inativado com sucesso', 'success');
-            } else {
-                swal.fire('Erro', 'Erro ao executar o pedido', 'error');
-            }
-        } catch (error) {
-            swal.fire('Erro', 'Erro ao conectar com a API \n errn Connect', 'error');
-        }
-    }, []);
+    //         if (response.status === 204) {
+    //             swal.fire('Sucesso', 'Cliente foi inativado com sucesso', 'success');
+    //         } else {
+    //             swal.fire('Erro', 'Erro ao executar o pedido', 'error');
+    //         }
+    //     } catch (error) {
+    //         swal.fire('Erro', 'Erro ao conectar com a API \n errn Connect', 'error');
+    //     }
+    // }, []);
 
     return (
         <>
@@ -46,7 +44,7 @@ function Pedidos() {
                     </div>
 
                     <div className="add-clients">
-                        <button className="button-add-client" onClick={handleAdicionarCliente}>Criar novo Pedido</button>
+                        {/* <button className="button-add-client" onClick={handleAdicionarCliente}>Criar novo Pedido</button> */}
                         <div className="search">
                             <FaSearch className="icon-search" />
                             <input type="search" name="query" placeholder="Pesquise aqui..." />

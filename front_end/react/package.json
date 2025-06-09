@@ -29,6 +29,7 @@
     "react-qr-code": "^2.0.15",
     "react-router-dom": "^7.6.1",
     "sweetalert2": "^11.22.0",
+    "typescript": "^5.8.3",
     "vite": "^6.3.5"
   }
 }

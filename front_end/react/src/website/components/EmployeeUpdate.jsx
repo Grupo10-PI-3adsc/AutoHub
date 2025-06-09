@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function EmployeeUpdate({setMostrarUpdate}) {
-    const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const [clientData, setClientData] = useState({
         id: '',

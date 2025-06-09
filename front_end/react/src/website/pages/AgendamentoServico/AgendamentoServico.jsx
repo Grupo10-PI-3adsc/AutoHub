@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ProductHeader from "../../components/ProductHeader";
 import SideBar from "../../components/SideBar";
 import Swal from "sweetalert2"; 
 import { useNavigate } from "react-router-dom"; 
@@ -13,9 +14,9 @@ const AgendadorServico = () => {
 
   return (
     <>
-    <Header />
-    
+     <ProductHeader />
     <div className={styles.ContainerPagina}>
+    <div className={styles.ContainerGeral}>
       <SideBar /> 
       <div className={styles.AgendadorWrapper}>
         <div className={styles.ColunaFormulario}>
@@ -71,6 +72,7 @@ const AgendadorServico = () => {
           </p>
         </div>
       </div>
+    </div>
     </div>
     </>     
   );

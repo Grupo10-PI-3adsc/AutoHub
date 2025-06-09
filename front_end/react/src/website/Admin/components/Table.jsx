@@ -235,7 +235,6 @@ const TableOrders = () => {
 
     const handleDeletePedido = (id) => {
         console.log("Deletar pedido com ID:", id);
-        
     };
 
     useEffect(() => {

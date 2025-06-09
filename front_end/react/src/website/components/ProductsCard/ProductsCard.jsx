@@ -1,75 +1,41 @@
 import React, { useState, useEffect } from "react";
-import styles from "../ProductsCard/ProductsCard.module.css";
+import styles from "./ProductsCard.module.css"; // Mantendo seu CSS original
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+// Removendo Link e useNavigate se não forem usados dentro deste componente
+// Removendo axios, apiUrl, e token relacionados à busca de produtos
+// pois a busca de produtos foi movida para o componente pai (Products.jsx)
 
-// const apiUrl = "http://54.147.227.169";
-const apiUrl = import.meta.env.VITE_API_URL;
+// Removendo a função gerarProdutos, pois não será mais usada aqui.
+// const gerarProdutos = async () => { ... };
 
-const token = localStorage.getItem("token")
-console.log(`${apiUrl}/api/auth/login`)
-console.log(token)
+// O componente ProductsCard agora recebe 'products' e 'atualizarCarrinho' como props
+const ProductsCard = ({ products, atualizarCarrinho }) => { // <--- products como prop
 
-const gerarProdutos = async () => {
-
-    try {
-
-        const response = await axios.get(`${apiUrl}/api/produtos/listar-produtos`, {
-           headers: {
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + token
-            }
-            });
-
-        
-        return response.data
-
-    } catch (error) {
-        console.error("Erro ao enviar dados:", error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: 'Erro ao buscar produtos. Tente novamente mais tarde.'
-        });
-    }
-
-
-    return [
-        // { id: 1, nome: "Lubramax SL 25W-50", preco: 38.0, quantidade: 1, imagem: "https://images.tcdn.com.br/img/img_prod/1027273/oleo_lubrax_essencial_20w50_4t_mineral_sl_ma_2239_1_d33f102462eb0bc19e8d52b9b9a6bf4d_20230802111244.jpg" },
-        // { id: 2, nome: "Pneu Aro 15", preco: 350.0, quantidade: 1, imagem: "https://example.com/pneu.jpg" },
-        // { id: 3, nome: "Óleo de Motor 5L", preco: 200.0, quantidade: 1, imagem: "https://example.com/oleo.jpg" },
-        // { id: 4, nome: "Filtro de Óleo", preco: 20.0, quantidade: 1, imagem: "https://example.com/filtro.jpg" },
-        // { id: 5, nome: "Pastilha de Freio", preco: 100.0, quantidade: 1, imagem: "https://example.com/pastilha.jpg" },
-        // { id: 6, nome: "Disco de Freio", preco: 150.0, quantidade: 1, imagem: "https://example.com/disco.jpg" },
-    ];
-};
-
-const ProductsCard =  ({ atualizarCarrinho }) => {
-    const [produtos, setProdutos] = useState([]);
-
-    useEffect(() => {
-        const fetchProdutos = async () => {
-            const produtosGerados = await gerarProdutos();
-            console.log(produtosGerados);
-            setProdutos(produtosGerados || []);
-        };
-        fetchProdutos();
-    }, []);
+    // O estado 'produtos' agora é inicializado com a prop 'products'
+    // Não precisamos de um useEffect para buscar dados aqui, pois eles vêm do pai.
+    // O useState 'produtos' pode ser mantido se houver outras manipulações locais,
+    // mas para renderização, basta usar diretamente a prop 'products'.
+    // Removendo o useEffect de fetchProdutos, pois a busca é feita no componente pai.
+    // const [produtos, setProdutos] = useState([]); // Este estado não é mais necessário para a lista principal
+    // useEffect(() => {
+    //     const fetchProdutos = async () => {
+    //         const produtosGerados = await gerarProdutos();
+    //         console.log(produtosGerados);
+    //         setProdutos(produtosGerados || []);
+    //     };
+    //     fetchProdutos();
+    // }, []);
 
     const addToCart = (produto) => {
         let cart = JSON.parse(localStorage.getItem("carrinho")) || [];
         const existingItem = cart.find((item) => item.id === produto.id);
 
-        // Opcional: Adicione uma verificação de estoque aqui também,
-        // para o caso de alguém tentar adicionar via console ou se o estoque mudar
         if (produto.qtdEstoque <= 0) {
             Swal.fire("Ops!", `"${produto.nome}" está fora de estoque.`, "error");
-            return; // Impede a adição ao carrinho
+            return;
         }
 
         if (existingItem) {
-            // Opcional: Adicione uma verificação para não adicionar mais do que o estoque disponível
             if (existingItem.quantidade >= produto.qtdEstoque) {
                 Swal.fire("Limite de Estoque!", `Você já adicionou a quantidade máxima disponível de "${produto.nome}" ao carrinho.`, "warning");
                 return;
@@ -82,39 +48,52 @@ const ProductsCard =  ({ atualizarCarrinho }) => {
         localStorage.setItem("carrinho", JSON.stringify(cart));
         Swal.fire("Adicionado!", `"${produto.nome}" foi adicionado ao carrinho.`, "success");
 
+        // Chama a função passada via prop para atualizar o estado do carrinho no componente Products (pai)
         atualizarCarrinho(cart);
     };
 
     return (
+        // Mantendo a classe CSS original para o container
         <div className={styles['products-cards']}>
-            {/* Adicione o método .filter() aqui antes do .map() */}
-            {produtos
-                .filter(produto => produto.qtdEstoque > 0) // <--- Esta é a linha chave
-                .map((produto) => (
-                    <div key={produto.id} className={styles['product-card']}>
-                        <div className={styles['container-product-img']}>
-                            <img
-                                src={produto.imagemUrl}
-                                alt={produto.nome}
-                                className={styles['product-image']}
-                            />
-                        </div>
-                        <div className={styles['product-info']}>
-                            <div className={styles['name-desc-content']}>   
-                                <h2 className={styles['product-name']}>{produto.nome}</h2>
-                                <p className={styles['product-subtitle']}>SL 25W-50</p>
+            {/* Mapeando diretamente a prop 'products' que vem do componente pai */}
+            {products.length > 0 ? (
+                products
+                    .filter(produto => produto.qtdEstoque > 0) // Mantendo seu filtro original de estoque
+                    .map((produto) => (
+                        <div key={produto.id} className={styles['product-card']}>
+                            <div className={styles['container-product-img']}>
+                                <img
+                                    src={produto.imagemUrl}
+                                    alt={produto.nome}
+                                    className={styles['product-image']}
+                                />
                             </div>
-                            <div className={styles['product-price-section']}>
-                                <span className={styles['product-price']}>R${produto.preco ? Number(produto.preco).toFixed(2) : "0.00"}</span>
-                                <span className={styles['product-installment']}>2x {produto.preco ? (Number(produto.preco) / 2).toFixed(2) : "0.00"} sem juros</span> {/* Adicionado parênteses para precedência */}
+                            <div className={styles['product-info']}>
+                                <div className={styles['name-desc-content']}>
+                                    <h2 className={styles['product-name']}>{produto.nome}</h2>
+                                    {/* Ajustado para usar a categoria do produto, se desejar */}
+                                    {/* Se 'SL 25W-50' era um subtítulo genérico, pode manter fixo ou remover */}
+                                    <p className={styles['product-subtitle']}>{produto.categoria}</p>
+                                </div>
+                                <div className={styles['product-price-section']}>
+                                    <span className={styles['product-price']}>
+                                        R$ {produto.preco ? Number(produto.preco).toFixed(2).replace('.', ',') : "0,00"}
+                                    </span>
+                                    <span className={styles['product-installment']}>
+                                        2x {produto.preco ? (Number(produto.preco) / 2).toFixed(2).replace('.', ',') : "0,00"} sem juros
+                                    </span>
+                                </div>
+                                <button className={styles['buy-button']}>Comprar</button>
+                                <button className={styles['addCart-button']} onClick={() => addToCart(produto)}>
+                                    <span className={styles['cart-icon']}>🛒</span> Adicionar ao Carrinho
+                                </button>
                             </div>
-                            <button className={styles['buy-button']}>Comprar</button>
-                            <button className={styles['addCart-button']} onClick={() => addToCart(produto)}>
-                                <span className={styles['cart-icon']}>🛒</span> Adicionar ao Carrinho
-                            </button>
                         </div>
-                    </div>
-                ))}
+                    ))
+            ) : (
+                // Mensagem quando não há produtos na categoria atual ou quando estão carregando
+                <p style={{ textAlign: 'center', width: '100%', padding: '20px' }}>Nenhum produto encontrado para esta categoria.</p>
+            )}
         </div>
     );
 };

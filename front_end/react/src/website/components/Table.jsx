@@ -9,6 +9,7 @@ import { SiPix } from 'react-icons/si';
 import styles from "../pages/Checkout/CheckoutPage.module.css";
 import QRCode from "react-qr-code";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FaRegEye } from "react-icons/fa";
 
 
 
@@ -228,150 +229,197 @@ const TableEmployees = () => {
   );
 };
 
+  const TableOrders = () => {
+    // 1. COMPONENT STATES
+    const [dados, setDados] = useState([]);
+    const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
+    const [pixCode, setPixCode] = useState("");
 
-const TableOrders = () => {
-  // 1. ESTADOS DO COMPONENTE (ORGANIZADOS)
-  const [dados, setDados] = useState([]);
-  const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
-  const [pixCode, setPixCode] = useState("");
-  
-  // O useNavigate não é mais necessário aqui, mas pode manter se usar em outro lugar
-  const navigate = useNavigate(); 
+    // 2. DATA FETCHING EFFECT
+    useEffect(() => {
+      const fetchDados = async () => {
+        try {
+          const response = await axios.get(`${apiUrl}/api/produtos/pedidos/usuario/${localStorage.getItem('id')}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          });
+          setDados(Array.isArray(response.data) ? response.data : []);
+        } catch (error) {
+          console.error("Erro ao buscar dados de pedidos:", error);
+          setDados([]); // Ensure dados is an array even on error
+        }
+      };
+      fetchDados();
+    }, []);
 
-  // useEffect para buscar os dados (Seu código está perfeito)
-  useEffect(() => {
-    const fetchDados = async () => {
+    // 3. HANDLER FUNCTIONS
+
+    // Function to open order details modal (from first example)
+    const handleDetailsPedido = (pedido) => {
+      Swal.fire({
+        title: `Detalhes do Pedido #${pedido.id}`,
+        html: `
+          <p><strong>Cliente:</strong> ${pedido.fkUsuario?.nome || 'N/A'}</p>
+          <p><strong>Data:</strong> ${new Date(pedido.dataPedido).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</p>
+          <p><strong>Produtos:</strong> ${pedido.produtos && pedido.produtos.length > 0
+            ? pedido.produtos.map(p => p.nome).join(', ')
+            : 'Nenhum produto'}</p>
+          <p><strong>Total:</strong> R$ ${parseFloat(pedido.total || 0).toFixed(2).replace('.', ',')}</p>
+          <p><strong>Status:</strong> ${pedido.status || 'N/A'}</p>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Fechar'
+      });
+    };
+
+    // Function to open PIX modal
+    const handleAbrirModalPix = (pedido) => {
+      setPedidoSelecionado(pedido);
+      // This is a hardcoded PIX code. In a real application, you'd generate this dynamically.
+      const code = `00020126360014br.gov.bcb.pix0114+551194959134052040000530398654041.005802BR5925Gustavo Dos Santos Ferrei6008Brasilia620804mpda63047E61`;
+      setPixCode(code);
+    };
+
+    // Function to close PIX modal
+    const fecharModalPix = () => {
+      setPedidoSelecionado(null);
+      setPixCode("");
+    };
+
+    // Function to finalize payment
+    const handleFinalizarPagamento = async () => {
+      if (!pedidoSelecionado) {
+        Swal.fire("Erro", "ID do pedido não encontrado.", "error");
+        return;
+      }
+
+      const pedidoId = pedidoSelecionado.id;
+      const url = `${apiUrl}/api/produtos/pedidos/pago/${pedidoId}`;
+
       try {
-        const response = await axios.get(`${apiUrl}/api/produtos/pedidos/usuario/${localStorage.getItem('id')}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        await axios.put(url, {});
+
+        await Swal.fire({
+          icon: "success",
+          title: "Pagamento Confirmado!",
+          text: "Seu pedido foi atualizado.",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
         });
-        setDados(Array.isArray(response.data) ? response.data : []);
+
+        // Update the status locally
+        setDados(dadosAtuais =>
+          dadosAtuais.map(p =>
+            p.id === pedidoId ? { ...p, status: 'Pago' } : p
+          )
+        );
+
+        // Close the modal
+        fecharModalPix();
+
       } catch (error) {
-        console.error("Erro ao buscar dados de pedidos:", error);
+        const errorMessage = error.response?.data?.message || "Ocorreu um erro inesperado.";
+        Swal.fire({
+          icon: "error",
+          title: "Erro na Finalização",
+          text: `Não foi possível finalizar o pedido: ${errorMessage}`,
+        });
       }
     };
-    fetchDados();
-  }, []);
 
-  // 2. FUNÇÕES DE MANIPULAÇÃO (HANDLERS)
-  const handleAbrirModalPix = (pedido) => {
-    setPedidoSelecionado(pedido);
-    const code = `00020126360014br.gov.bcb.pix0114+551194959134052040000530398654041.005802BR5925Gustavo Dos Santos Ferrei6008Brasilia620804mpda63047E61`;
-    setPixCode(code);
-  };
+    // 4. COMPONENT JSX
+    return (
+      <>
+        <div className="table-container" style={{ maxHeight: "400px", overflowY: "auto" }}>
+          {/* TABLE HEADER */}
+          <div className="table-header">
+            <div className="table-column">#</div>
+            <div className="table-column">Cliente</div>
+            <div className="table-column">Data</div>
+            <div className="table-column">Produtos</div>
+            <div className="table-column">Valor Total</div>
+            <div className="table-column">Status</div>
+            <div className="table-actions-header">Ações</div> {/* Added Ações header */}
+          </div>
 
-  const fecharModalPix = () => {
-    setPedidoSelecionado(null);
-    setPixCode("");
-  };
-
-  const handleFinalizarPagamento = async () => {
-    if (!pedidoSelecionado) {
-      Swal.fire("Erro", "ID do pedido não encontrado.", "error");
-      return;
-    }
-
-    const pedidoId = pedidoSelecionado.id;
-    const url = `${apiUrl}/api/produtos/pedidos/pago/${pedidoId}`;
-
-    try {
-      await axios.put(url, {});
-
-      await Swal.fire({
-        icon: "success",
-        title: "Pagamento Confirmado!",
-        text: "Seu pedido foi atualizado.",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-
-      // ATUALIZA A LISTA LOCALMENTE
-      setDados(dadosAtuais =>
-        dadosAtuais.map(p =>
-          p.id === pedidoId ? { ...p, status: 'Pago' } : p
-        )
-      );
-
-      // FECHA O MODAL
-      fecharModalPix();
-
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || "Ocorreu um erro inesperado.";
-      Swal.fire({
-        icon: "error",
-        title: "Erro na Finalização",
-        text: `Não foi possível finalizar o pedido: ${errorMessage}`,
-      });
-    }
-  };
-
-
-  // 3. JSX DO COMPONENTE
-  return (
-    <>
-      <div className="table-container" style={{ maxHeight: "400px", overflowY: "auto" }}>
-        {/* ... Seu cabeçalho de tabela ... */}
-        <div className="table-header">
-          <div className="table-column">#</div>
-          <div className="table-column">Cliente</div>
-          <div className="table-column">Data</div>
-          <div className="table-column">Produtos</div>
-          <div className="table-column">Valor Total</div>
-          <div className="table-column">Status</div>
+          {/* TABLE BODY */}
+          {dados.length > 0 ? (
+            dados.map((pedido) => (
+              <div key={pedido.id} className="table-row">
+                <div className="table-column">{pedido.id}</div>
+                <div className="table-column">{pedido.fkUsuario?.nome || "N/A"}</div>
+                <div className="table-column">{new Date(pedido.dataPedido).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</div>
+                <div className="table-column">
+                  {pedido.produtos && pedido.produtos.length > 0
+                    ?
+                    pedido.produtos
+                      .slice(0, 4)
+                      .map(p => p.nome)
+                      .join(', ') +
+                    (pedido.produtos.length > 4 ? '...' : '')
+                    :
+                    'Nenhum produto'
+                  }
+                </div>
+                <div className="table-column">{`R$ ${parseFloat(pedido.total || 0).toFixed(2).replace('.', ',')}`}</div>
+                <div className="table-column">
+                  {pedido.status === "Aguardando" ? (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span>{pedido.status}</span>
+                    </div>
+                  ) : (
+                    pedido.status
+                  )}
+                </div>
+                <div className="table-actions">
+                  <FaRegEye
+                    onClick={() => handleDetailsPedido(pedido)}
+                    style={{ cursor: 'pointer', marginRight: '10px' }}
+                    title="Ver Detalhes"
+                  />
+                  {pedido.status === "Aguardando" && (
+                    // MODIFICATION HERE: Ensure no background is set on the icon itself.
+                    // The color is set directly to the icon.
+                    <SiPix
+                      onClick={() => handleAbrirModalPix(pedido)}
+                      title="Pagar com PIX"
+                      style={{
+                        cursor: 'pointer',
+                        color: '#32BCAD', // Keep the PIX green color
+                        fontSize: '1.2em',
+                        background: 'transparent' // Explicitly set background to transparent
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p style={{ textAlign: 'center', padding: '20px' }}>Carregando ou nenhum pedido encontrado...</p>
+          )}
         </div>
 
-        {dados.length > 0 ? (
-          dados.map((tupla) => (
-            <div key={tupla.id} className="table-row">
-              <div className="table-column">{tupla.id}</div>
-              <div className="table-column">{tupla.fkUsuario?.nome || "N/A"}</div>
-              <div className="table-column">{new Date(tupla.dataPedido).toLocaleDateString()}</div>
-              <div className="table-column">{"Produtos indisponiveis"}</div>
-              <div className="table-column">{`R$${tupla.total}`}</div>
-              <div className="table-column">
-                {tupla.status === "Aguardando" ? (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span>{tupla.status}</span>
-                    <SiPix 
-                      onClick={() => handleAbrirModalPix(tupla)}
-                      title="Pagar com PIX" 
-                      style={{ cursor: 'pointer', marginLeft: '10px', color: '#32BCAD', fontSize: '1.2em' }} 
-                    />
-                  </div>
-                ) : (
-                  tupla.status
-                )}
+        {/* PIX MODAL (rendered once, outside the map) */}
+        {pixCode && pedidoSelecionado && (
+          <div className={styles.qrCodeOverlay}>
+            <div className={styles.qrCodeContainer}>
+              <h3>Escaneie para pagar o pedido #{pedidoSelecionado.id}</h3>
+              <QRCode value={pixCode} size={256} />
+              <p className={styles.pixInfo}>Após o pagamento, confirme abaixo.</p>
+              <div className={styles.qrCodeButtons}>
+                <button className={styles.continueButton} onClick={handleFinalizarPagamento}>
+                  Pagamento Realizado
+                </button>
+                <button className={styles.cancelButton} onClick={fecharModalPix}>
+                  Cancelar
+                </button>
               </div>
             </div>
-          ))
-        ) : (
-          <p>Nenhum pedido para exibir.</p>
-        )}
-      </div>
-
-      {/* 4. MODAL RENDERIZADO FORA DO LOOP, UMA ÚNICA VEZ */}
-      {pixCode && pedidoSelecionado && (
-        <div className={styles.qrCodeOverlay}>
-          <div className={styles.qrCodeContainer}>
-            <h3>Escaneie para pagar o pedido #{pedidoSelecionado.id}</h3>
-            <QRCode value={pixCode} size={256} />
-            <p className={styles.pixInfo}>Após o pagamento, confirme abaixo.</p>
-            <div className={styles.qrCodeButtons}>
-              <button className={styles.continueButton} onClick={handleFinalizarPagamento}>
-                Pagamento Realizado
-              </button>
-              <button className={styles.cancelButton} onClick={fecharModalPix}>
-                Cancelar
-              </button>
-            </div>
           </div>
-        </div>
-      )}
-    </>
-  );
-};
-
+        )}
+      </>
+    );
+  };
 const TableServices = () => {
   const [mostrarUpdate, setMostrarUpdate] = useState(false);
   const [dados, setDados] = useState([]);

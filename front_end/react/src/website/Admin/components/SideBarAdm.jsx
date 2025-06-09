@@ -9,14 +9,14 @@ import { MdListAlt } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 
-const SideBar = () => {
+const SideBarAdm = () => {
     const navigate = useNavigate();
     const Logout = (event) => {
         event.preventDefault();
         sessionStorage.clear();
         localStorage.clear();
         navigate('/'); 
-    };
+    };    
     return (
         <>
             <div className="sidebar">
@@ -41,17 +41,17 @@ const SideBar = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="/usersAdm">	
+                            <a href="/Usuarios">	
                                 <IoMdPerson className="icon" /> <span className="text">Usuarios</span>
                             </a>
                         </li>
                         <li>
                             <a href="pedidosAdm">
-                                <PiHandshakeDuotone className="icon" /> <span className="text">Pagamentos</span>
+                                <PiHandshakeDuotone className="icon" /> <span className="text">Pedidos</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/" onClick={Logout}>
+                       <li>
+                            <a onClick={Logout}>
                                 <BiLogOut className="icon" /> <span className="text">Sair</span>
                             </a>
                         </li>
@@ -62,4 +62,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default SideBarAdm;

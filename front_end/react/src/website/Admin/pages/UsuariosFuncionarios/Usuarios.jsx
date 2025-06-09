@@ -62,7 +62,7 @@ const estiloBotaoAtivo = {
 
                     <div className="add-clients">
                         <button className="button-add-client" onClick={handleAdicionarCliente}>
-                            Adicionar Usuário
+                            Adicionar Funcionários
                         </button>
                         <div className="search">
                             <FaSearch className="icon-search" />

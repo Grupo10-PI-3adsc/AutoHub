@@ -61,7 +61,19 @@ const ProductsCard =  ({ atualizarCarrinho }) => {
         let cart = JSON.parse(localStorage.getItem("carrinho")) || [];
         const existingItem = cart.find((item) => item.id === produto.id);
 
+        // Opcional: Adicione uma verificação de estoque aqui também,
+        // para o caso de alguém tentar adicionar via console ou se o estoque mudar
+        if (produto.qtdEstoque <= 0) {
+            Swal.fire("Ops!", `"${produto.nome}" está fora de estoque.`, "error");
+            return; // Impede a adição ao carrinho
+        }
+
         if (existingItem) {
+            // Opcional: Adicione uma verificação para não adicionar mais do que o estoque disponível
+            if (existingItem.quantidade >= produto.qtdEstoque) {
+                Swal.fire("Limite de Estoque!", `Você já adicionou a quantidade máxima disponível de "${produto.nome}" ao carrinho.`, "warning");
+                return;
+            }
             existingItem.quantidade += 1;
         } else {
             cart.push({ ...produto, quantidade: 1 });
@@ -75,33 +87,36 @@ const ProductsCard =  ({ atualizarCarrinho }) => {
 
     return (
         <div className={styles['products-cards']}>
-            {produtos.map((produto) => (
-                <div key={produto.id} className={styles['product-card']}>
-                    <div className={styles['container-product-img']}>
-                        <img
-                            src={produto.imagemUrl}
-                            alt={produto.nome}
-                            className={styles['product-image']}
-                        />
-                    </div>
-                    <div className={styles['product-info']}>
-                        <div className={styles['name-desc-content']}>   
-                            <h2 className={styles['product-name']}>{produto.nome}</h2>
-                            <p className={styles['product-subtitle']}>SL 25W-50</p>
+            {/* Adicione o método .filter() aqui antes do .map() */}
+            {produtos
+                .filter(produto => produto.qtdEstoque > 0) // <--- Esta é a linha chave
+                .map((produto) => (
+                    <div key={produto.id} className={styles['product-card']}>
+                        <div className={styles['container-product-img']}>
+                            <img
+                                src={produto.imagemUrl}
+                                alt={produto.nome}
+                                className={styles['product-image']}
+                            />
                         </div>
-                        <div className={styles['product-price-section']}>
-                            <span className={styles['product-price']}>R${produto.preco ? Number(produto.preco).toFixed(2) : "0.00"}</span>
-                            <span className={styles['product-installment']}>2x {produto.preco ? Number(produto.preco) / 2 .toFixed(2) : "0.00"} sem juros</span>
+                        <div className={styles['product-info']}>
+                            <div className={styles['name-desc-content']}>   
+                                <h2 className={styles['product-name']}>{produto.nome}</h2>
+                                <p className={styles['product-subtitle']}>SL 25W-50</p>
+                            </div>
+                            <div className={styles['product-price-section']}>
+                                <span className={styles['product-price']}>R${produto.preco ? Number(produto.preco).toFixed(2) : "0.00"}</span>
+                                <span className={styles['product-installment']}>2x {produto.preco ? (Number(produto.preco) / 2).toFixed(2) : "0.00"} sem juros</span> {/* Adicionado parênteses para precedência */}
+                            </div>
+                            <button className={styles['buy-button']}>Comprar</button>
+                            <button className={styles['addCart-button']} onClick={() => addToCart(produto)}>
+                                <span className={styles['cart-icon']}>🛒</span> Adicionar ao Carrinho
+                            </button>
                         </div>
-                        <button className={styles['buy-button']}>Comprar</button>
-                        <button className={styles['addCart-button']} onClick={() => addToCart(produto)}>
-                            <span className={styles['cart-icon']}>🛒</span> Adicionar ao Carrinho
-                        </button>
                     </div>
-                </div>
-            ))}
+                ))}
         </div>
     );
-}
+};
 
 export default ProductsCard;

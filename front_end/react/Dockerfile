@@ -20,5 +20,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
 #sudo docker build -t autohub-front .
-#sudo docker tag autohub-front matteusnogueira/autohub-front:*versão*
-#sudo docker push matteusnogueira/autohub-front:*vesão*
+#sudo docker tag autohub-front matteusnogueira/autohub-front:latest
+#sudo docker push matteusnogueira/autohub-front:latest

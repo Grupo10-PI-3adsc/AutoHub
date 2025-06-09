@@ -1,0 +1,8 @@
+autohub_adm
+AutoHubAdm_123#
+
+Admin123# (senha do SA - server admin)
+
+/opt/mssql/bin/sqlpackage /a:Import /tsn:tcp:localhost /tdn:db-autocenter /tu:autohub_adm /tp:PQ9!3%a:K2%r /sf:/home/user/Downloads/dbname.bacpac
+
+sqlcmd -S localhost -U SA -P 'Admin123#' -Q "BACKUP DATABASE [db-autocenter] TO DISK = N'/home/ubuntu/backupBanco/backupBanco.bak' WITH NOFORMAT, NOINIT, NAME = N'db-autocenter-Full Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10;"

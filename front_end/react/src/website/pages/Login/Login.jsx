@@ -4,12 +4,10 @@ import Swal from 'sweetalert2';
 import Header from "../../components/Header";
 import axios from "axios";
 
-// const apiUrl = import.meta.env.VITE_CLOUD_API_URL;
-// const apiUrl = "https://apiautohub.azurewebsites.net";
-const apiUrl = "http://localhost:8080";
+// const apiUrl = "http://54.147.227.169";
+const apiUrl = import.meta.env.VITE_API_URL;
 
-console.log(import.meta.env);
-console.log(import.meta.env.VITE_CLOUD_API_URL);
+console.log(import.meta.env.API_URL);
 console.log(`${apiUrl}/api/auth/login`)
 
 function Login() {
@@ -26,8 +24,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const data = { email, password };
+const data = { email, password };
         try {
             const response = await axios.post(`${apiUrl}/api/auth/login`, data, {
                headers: {
@@ -35,13 +32,35 @@ function Login() {
                 }
                 });
 
+            console.log(response)
+            const { token, nome, email, cpfCnpj, telefone, id, role } = response.data;
 
-            const { token, nome } = response.data;
+            // Check if 'endereco' exists in the response data
+            const endereco = response.data.endereco;
 
             if (token) {
                 localStorage.setItem("token", token);
-                localStorage.setItem("nome", nome)
-                localStorage.setItem("email", response.data['email'])
+                localStorage.setItem("nome", nome);
+                localStorage.setItem("id", id);
+                localStorage.setItem("email", email);
+                localStorage.setItem("cpfCnpj", cpfCnpj);
+                localStorage.setItem("role", role);
+                localStorage.setItem("telefone", telefone);
+
+                if (endereco) {
+                    localStorage.setItem("idEndereco", endereco.id);
+                    localStorage.setItem("cep", endereco.cep);
+                    localStorage.setItem("bairro", endereco.bairro);
+                    localStorage.setItem("localidade", endereco.localidade);
+                    localStorage.setItem("uf", endereco.uf);
+                } else {
+                    localStorage.setItem("idEndereco", 0);
+                    localStorage.setItem("cep", "");
+                    localStorage.setItem("bairro", "");
+                    localStorage.setItem("localidade", "");
+                    localStorage.setItem("uf", "");
+                }
+
                 Swal.fire({
                     icon: 'success',
                     title: `Login realizado com sucesso, ${nome}!`,
@@ -49,7 +68,11 @@ function Login() {
                     showConfirmButton: false,
                     timer: 2000
                 }).then(() => {
+                    if (role === "FUNC" || role === "GERENTE" || role === "SYS_ADM") {
+                        navigate("/dashboard");
+                    } else {
                     navigate("/produtos");
+                    }
                 });
             } else {
                 Swal.fire({

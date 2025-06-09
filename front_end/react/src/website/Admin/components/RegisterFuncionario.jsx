@@ -83,7 +83,7 @@ function RegisterFuncionario({ setMostrarCadastro }) {
 
     return (
         <div style={overlayStyles}>
-            <div style={contentStyles}>
+            <div style={contentStyles} className="modal-cadastrar-clientes">
                 <h1 style={{ textAlign: 'center', color: '#f7b731' }}>Cadastro de Funcionário</h1>
                 <form onSubmit={handleAddEmp}>
                     <div className="modal-inputs">

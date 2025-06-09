@@ -103,7 +103,7 @@ function AdicionarProduto({ setMostrarCadastro, onProdutoAdicionado }) {
 
     return (
         <div style={overlayStyles}>
-            <div style={contentStyles}>
+            <div style={contentStyles} className="modal-cadastrar-clientes">
                 <h1>Cadastro de Produto</h1>
                 <form onSubmit={handleAddProduct}>
                     <div className="modal-inputs">

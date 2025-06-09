@@ -68,7 +68,11 @@ const data = { email, password };
                     showConfirmButton: false,
                     timer: 2000
                 }).then(() => {
+                    if (role === "FUNC" || role === "GERENTE" || role === "SYS_ADM") {
+                        navigate("/dashboard");
+                    } else {
                     navigate("/produtos");
+                    }
                 });
             } else {
                 Swal.fire({

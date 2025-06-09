@@ -124,7 +124,7 @@ function RegistrarPedido({ setMostrarFormulario }) {
 
     return (
         <div style={overlayStyles}>
-            <div style={contentStyles}>
+            <div style={contentStyles} className="modal-pedidos">
                 <h1 style={{ textAlign: 'center', color: '#f7b731' }}>Registrar Novo Pedido</h1>
                 {isLoading ? <p>Carregando...</p> : (
                     <form onSubmit={handleRegistrarPedido}>
@@ -149,7 +149,7 @@ function RegistrarPedido({ setMostrarFormulario }) {
                                     <p>Qtd.</p>
                                     <input type="number" min="1" value={quantidade} onChange={(e) => setQuantidade(parseInt(e.target.value, 10) || 1)} />
                                 </div>
-                                <button type="button" className="btn-add-item" onClick={handleAddItemAoCarrinho}>Adicionar</button>
+                                <button type="button" className="btn-modal cadastrar" onClick={handleAddItemAoCarrinho}>Adicionar</button>
                             </div>
 
                             <div className="cart-list" style={{ background: '#36393f', padding: '15px', borderRadius: '8px', marginTop: '20px' }}>

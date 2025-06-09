@@ -18,10 +18,10 @@ import CheckoutPage from "./website/pages/Checkout/CheckoutPage.jsx";
 import AgendamentoServico from "./website/pages/AgendamentoServico/AgendamentoServico.jsx";
 
 // Importando as páginas do Admin
-import Usuarios from "./website/Admin/Pages/UsuariosFuncionarios/Usuarios.jsx";
-import ProdutosAdm from "./website/Admin/Pages/Produtos/ProdutosAdm.jsx";
+import Usuarios from "./website/Admin/pages/UsuariosFuncionarios/Usuarios.jsx";
+import ProdutosAdm from "./website/Admin/pages/Produtos/ProdutosAdm.jsx";
 import PedidosAdm from "./website/Admin/pages/Pedidos/PedidosAdm.jsx";
-import AgendamentosAdm from "./website/Admin/Pages/Agendamentos/AgendamentosAdm.jsx";
+import AgendamentosAdm from "./website/Admin/pages/Agendamentos/AgendamentosAdm.jsx";
 
 function Rotas() {
   return (

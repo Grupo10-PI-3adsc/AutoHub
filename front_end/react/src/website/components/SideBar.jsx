@@ -35,11 +35,11 @@ const SideBar = () => {
                                 <LuCalendarClock className="icon" /> <span className="text">Agendamentos</span>
                             </a>
                         </li>
-                        <li>
+                        {/* <li>
                             <a href="/pagamentos">
                                 <PiHandshakeDuotone className="icon" /> <span className="text">Pagamentos</span>
                             </a>
-                        </li>
+                        </li> */}
                         <li>
                             <a href="/pedidos">
                                 <MdListAlt className="icon" /> <span className="text">Pedidos</span>

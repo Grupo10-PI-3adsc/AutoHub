@@ -16,26 +16,30 @@ const CheckoutPage = ({ setCarrinho }) => {
   const navigate = useNavigate();
   const carrinho = location.state?.carrinho || [];
   const [total, setTotal] = useState(0);
+  const [taxaInstalacao, setTaxaInstalacao] = useState(0); 
   const [pixCode, setPixCode] = useState("");
   const [opcao, setOpcao] = useState("produto");
   const [pedidoId, setPedidoId] = useState(null);
 
   useEffect(() => {
-    const calcularTotal = () => {
-      return carrinho.reduce(
-        (total, item) => total + (item.preco || 0) * item.quantidade,
-        0
-      );
-    };
-    setTotal(calcularTotal());
-  }, [carrinho]);
+    const subtotal = carrinho.reduce(
+      (acc, item) => acc + (item.preco || 0) * item.quantidade,
+      0
+    );
+
+    if (opcao === "instalacao") {
+      const taxa = subtotal * 0.10; 
+      setTaxaInstalacao(taxa); 
+      setTotal(subtotal + taxa); 
+    } else {
+      setTaxaInstalacao(0);
+      setTotal(subtotal);
+    }
+  }, [carrinho, opcao]); 
 
   const requisicaoPedido = async () => {
     const instalacao = opcao === "instalacao";
-
-    const carrinhoIds = carrinho.flatMap(item =>
-      Array(item.quantidade).fill(item.id)
-    );
+    const carrinhoIds = carrinho.flatMap(item => Array(item.quantidade).fill(item.id)); 
 
     const data = {
       carrinho: carrinhoIds,
@@ -82,7 +86,7 @@ const CheckoutPage = ({ setCarrinho }) => {
     }
   };
 
-const finalizarPedidoPix = async () => {
+  const finalizarPedidoPix = async () => {
     if (!pedidoId) {
         swal.fire("Erro", "ID do pedido não encontrado para finalizar o pagamento.", "error");
         return;

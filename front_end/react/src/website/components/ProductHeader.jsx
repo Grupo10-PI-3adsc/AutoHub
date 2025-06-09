@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+// NOVO: Importar o hook useLocation
+import { useLocation } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import CarrinhoDeCompras from '../pages/CarrinhoDeCompras/CarrinhoDeCompras.jsx';
 import styles from '../pages/CarrinhoDeCompras/ProductHeader.module.css';
@@ -17,14 +19,17 @@ function obterHoraAtual() {
     return agora.toLocaleTimeString();
 }
 
-const ProductHeader = ({ carrinho = [], setCarrinho }) => { // Garantir que carrinho seja um array
+const ProductHeader = ({ carrinho = [], setCarrinho }) => {
+    const location = useLocation();
+
     const [horaAtual, setHoraAtual] = useState(obterHoraAtual());
     const dataAtual = obterDataAtual();
     const [mostrarCarrinhoCompleto, setMostrarCarrinhoCompleto] = useState(false);
     const carrinhoRef = useRef(null);
     const cartIconRef = useRef(null);
-
     const [isOpen, setIsOpen] = useState(false);
+
+    const exibirCarrinho = location.pathname === '/produtos' && localStorage.getItem('role') === 'USER';
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -68,25 +73,23 @@ const ProductHeader = ({ carrinho = [], setCarrinho }) => { // Garantir que carr
                 </div>
                 <div className="product-header-perfil" onClick={toggleDropdown}>
                     <div className="product-header-perfil-header">
-                        <img src="/assets/placeholder.png" alt="" />
                         <div className="product-header-perfil-header-text">
-                            <p>{localStorage.getItem('nome')}</p> <span className={`arrow ${isOpen ? 'open' : ''}`}><IoIosArrowDown /></span>
+                            <p>{localStorage.getItem('nome')}</p> 
                         </div>
                     </div>
-                    {isOpen && (
-                        <div className="product-header-perfil-dropdown">
-                            {/* Conteúdo do dropdown */}
+                </div>
+
+                {exibirCarrinho && (
+                    <div className={styles.cartIconContainer}>
+                        <div ref={cartIconRef} className={styles.cartIconWrapper} onClick={toggleCarrinho}>
+                            <FaShoppingCart className={styles.cartIcon} />
                         </div>
-                    )}
-                </div>
-                <div className={styles.cartIconContainer}>
-                    <div ref={cartIconRef} className={styles.cartIconWrapper} onClick={toggleCarrinho}>
-                        <FaShoppingCart className={styles.cartIcon} />
+                        <span className={styles.cartCount}>{carrinho.length}</span>
                     </div>
-                    <span className={styles.cartCount}>{carrinho.length}</span>
-                </div>
+                )}
             </header>
-            {mostrarCarrinhoCompleto && (
+
+            {exibirCarrinho && mostrarCarrinhoCompleto && (
                 <div ref={carrinhoRef}>
                     <CarrinhoDeCompras carrinho={carrinho} setCarrinho={setCarrinho} />
                 </div>

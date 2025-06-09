@@ -44,7 +44,7 @@ function Pedidos() {
                     </div>
 
                     <div className="add-clients">
-                        <button className="button-add-client" onClick={handleAdicionarCliente}>Criar novo Pedido</button>
+                        {/* <button className="button-add-client" onClick={handleAdicionarCliente}>Criar novo Pedido</button> */}
                         <div className="search">
                             <FaSearch className="icon-search" />
                             <input type="search" name="query" placeholder="Pesquise aqui..." />
